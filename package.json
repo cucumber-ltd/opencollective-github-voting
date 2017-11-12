@@ -1,0 +1,10 @@
+{
+  "name": "opencollective-github-voting",
+  "version": "1.0.0",
+  "description": "Microservice for voting on GitHub issues using OpenCollective",
+  "main": "server.js",
+  "license": "MIT",
+  "devDependencies": {
+    "cucumber": "^3.1.0"
+  }
+}
