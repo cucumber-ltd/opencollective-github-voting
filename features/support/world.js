@@ -8,7 +8,9 @@ const assembly = new AssemblyModule()
 
 class TheWorld {
   constructor() {
-    this.votingPort = () => assembly.votingPort
+    this.contextVotingPort = () => assembly.contextVotingPort()
+    this.actionVotingPort = () => assembly.actionVotingPort()
+    this.outcomeVotingPort = () => assembly.outcomeVotingPort()
   }
 }
 
