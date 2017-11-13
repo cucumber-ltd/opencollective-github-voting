@@ -26,6 +26,9 @@ Logged-in users have additional functionality:
 
 Administrators can configure what GitHub issues are votable (this will probably be done by tagging issues on GitHub)
 
+It's not a goal to update issues on GitHub - seeing what people have voted on will happen on a system
+outside of GitHub.
+
 ## Software Architecture
 
 The application is based on [Event Sourcing](https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing)
