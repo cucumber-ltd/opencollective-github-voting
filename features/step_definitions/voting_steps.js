@@ -23,11 +23,11 @@ When('{username} votes {int} on {issueIdentifier}', async function(username, amo
 })
 
 Then('{issueIdentifier} should have {int} votes', async function(issueIdentifier, expectedBalance) {
-  const balance = await this.outcomeVotingPort().getBalance(issueIdentifier)
-  assert.equal(balance, expectedBalance)
+  const account = await this.outcomeVotingPort().getAccount(issueIdentifier)
+  assert.equal(account.balance, expectedBalance)
 })
 
 Then('{username} should have {int} votes left', async function(username, expectedBalance) {
-  const balance = await this.outcomeVotingPort().getBalance(username)
-  assert.equal(balance, expectedBalance)
+  const account = await this.outcomeVotingPort().getAccount(username)
+  assert.equal(account.balance, expectedBalance)
 })
