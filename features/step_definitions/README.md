@@ -12,9 +12,11 @@ In particular:
 * `Given` steps can only store *events*
   * Informational messages
   * This is how we set up "what's happened in the past"
+  * Access domain port, never via external adapters
 * `When` steps can only dispatch *commands*
   * Imperative messages
   * This is how we represent "intent"
+  * Access via external adapter (if connected)
 * `Then` steps can only consult *projections* (read models)
   * Query message
   * This is the only observable outcome

@@ -44,3 +44,9 @@ Voting is similar to banking. Casting a vote is similar to transferring money fr
 to another account (the issue). The only difference is that we're transferring votes, not money.
 
 Both issues and users are modelled as `Account`s. Voting is modelled as `Transaction`s.
+
+## TODO
+
+* Create a HTTP adapter
+* Develop logic for crediting (user) accounts based on donations and GitHub activity
+* Persist events
