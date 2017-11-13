@@ -35,11 +35,11 @@ When('{username} votes {int} on {issueIdentifier}', async function(username, amo
 })
 
 Then('{issueIdentifier} should have {int} votes', async function(issueIdentifier, count) {
-  const issue = await this.store().issue.findIssue(issueIdentifier)
-  assert.equal(issue.voteCount, count)
+  const issueAccount = await this.repository().load(Account, this._accountUid(issueIdentifier))
+  assert.equal(issueAccount._balance, count)
 })
 
 Then('{username} should have {int} votes left', async function(username, count) {
-  const user = await this.store().user.findUser(username)
-  assert.equal(user.voteCount, count)
+  const userAccount = await this.repository().load(Account, this._accountUid(username))
+  assert.equal(userAccount._balance, count)
 })
