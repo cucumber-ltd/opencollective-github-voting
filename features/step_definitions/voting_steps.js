@@ -1,44 +1,45 @@
 const assert = require('assert')
-const { Given, When, Then } = require('cucumber')
+const uuid = require('uuid/v4')
+const { Before, Given, When, Then } = require('cucumber')
+const { TransferCommand } = require('../../lib/domain/commands')
+const { Account } = require('../../lib/domain/entities')
 
-Given('{username} has {int} votes', function (username, count) {
-  this.eventStore().storeEvent({
-    type: 'VotesAttributedToUser',
-    data: {
-      username,
-      count
-    }
-  })
+Before(function() {
+  const accountsByUid = new Map()
+  this._accountUid = name => {
+    if (!accountsByUid.has(name))
+      accountsByUid.set(name, uuid())
+    return accountsByUid.get(name)
+  }
 })
 
-Given('{issueIdentifier} has {int} votes', function (issueIdentifier, count) {
-  this.eventStore().storeEvent({
-    type: 'VotesCastByUser',
-    data: {
-      issueIdentifier,
-      count,
-      username: 'randomuser'
-    }
-  })
+async function createAccount(accountName) {
+  await Account.create(this._accountUid(accountName), this.eventStore())
+}
+
+Given('{issueIdentifier} exists', createAccount)
+Given('{username} exists', createAccount)
+
+async function creditAccount(accountName, amount) {
+  const account = await this.repository().load(Account, this._accountUid(accountName))
+  await account.credit(amount)
+}
+
+Given('{username} has {int} votes', creditAccount)
+Given('{issueIdentifier} has {int} votes', creditAccount)
+
+When('{username} votes {int} on {issueIdentifier}', async function(username, amount, issueIdentifier) {
+  const fromAccountUid = this._accountUid(username)
+  const toAccountUid = this._accountUid(issueIdentifier)
+  await this.commandBus().dispatchCommand(new TransferCommand({ fromAccountUid, toAccountUid, amount }))
 })
 
-When('{username} votes {int} on {issueIdentifier}', function (username, count, issueIdentifier) {
-  this.commandBus().dispatchCommand({
-    type: 'UserVote',
-    data: {
-      username,
-      count,
-      issueIdentifier
-    }
-  })
-})
-
-Then('{issueIdentifier} should have {int} votes', async function (issueIdentifier, count) {
+Then('{issueIdentifier} should have {int} votes', async function(issueIdentifier, count) {
   const issue = await this.store().issue.findIssue(issueIdentifier)
   assert.equal(issue.voteCount, count)
 })
 
-Then('{username} should have {int} votes left', async function (username, count) {
+Then('{username} should have {int} votes left', async function(username, count) {
   const user = await this.store().user.findUser(username)
   assert.equal(user.voteCount, count)
 })

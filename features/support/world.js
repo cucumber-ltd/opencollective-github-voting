@@ -10,6 +10,7 @@ class TheWorld {
   constructor() {
     this.eventStore = () => assembly.eventStore
     this.commandBus = () => assembly.commandBus
+    this.repository = () => assembly.repository
     this.store = () => assembly.store
   }
 }

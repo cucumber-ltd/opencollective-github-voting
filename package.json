@@ -6,5 +6,8 @@
   "license": "MIT",
   "devDependencies": {
     "cucumber": "^3.1.0"
+  },
+  "dependencies": {
+    "uuid": "^3.1.0"
   }
 }

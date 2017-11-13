@@ -1,12 +1,14 @@
 const MemoryEventStore = require('../../../lib/eventstore/MemoryEventStore')
-const MemoryCommandBus = require('../../../lib/commandbus/MemoryCommandBus')
+const CommandBus = require('../../../lib/commandbus/CommandBus')
+const Repository = require('../../../lib/repository/Repository')
 const MemoryIssueStore = require('../../../lib/read/issue/MemoryIssueStore')
 const MemoryUserStore = require('../../../lib/read/user/MemoryUserStore')
 
 module.exports = class MemoryAssembly {
   async start () {
     this.eventStore = new MemoryEventStore()
-    this.commandBus = new MemoryCommandBus()
+    this.repository = new Repository(this.eventStore)
+    this.commandBus = new CommandBus(this.repository)
     this.store = {
       issue: new MemoryIssueStore(),
       user: new MemoryUserStore()

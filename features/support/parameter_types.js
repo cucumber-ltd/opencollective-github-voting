@@ -10,7 +10,7 @@ defineParameterType({
 
 defineParameterType({
   name: 'issueIdentifier',
-  regexp: /\w+\/\w+#(\d+)/,
+  regexp: /\w+\/\w+#\d+/,
   transformer(username) {
     return username
   }

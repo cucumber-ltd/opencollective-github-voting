@@ -37,3 +37,10 @@ The software components are decoupled using the [Hexagonal Architecture](http://
 The tests are inspired by [todo-subsecond](https://github.com/subsecondtdd/todo-subsecond), a small application
 that introduces some conventions for running the same tests in different configurations, taking advantage of
 ports and adapters.
+
+## Domain model
+
+Voting is similar to banking. Casting a vote is similar to transferring money from one account (the user)
+to another account (the issue). The only difference is that we're transferring votes, not money.
+
+Both issues and users are modelled as `Account`s. Voting is modelled as `Transaction`s.
