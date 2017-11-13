@@ -8,10 +8,13 @@ const assembly = new AssemblyModule()
 
 class TheWorld {
   constructor() {
+    // From Assembly
     this.eventStore = () => assembly.eventStore
     this.commandBus = () => assembly.commandBus
     this.repository = () => assembly.repository
-    this.store = () => assembly.store
+
+    // From Test Assembly
+    this.votingPort = () => assembly.votingPort
   }
 }
 
