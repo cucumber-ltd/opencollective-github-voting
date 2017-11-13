@@ -10,7 +10,6 @@ Given('{issueIdentifier} exists', async function createAccount(issueIdentifier) 
   await this.votingPort().createIssue(issueIdentifier)
 })
 
-
 Given('{username} has {int} votes', async function creditAccount(username, amount) {
   await this.votingPort().creditUser(username, amount)
 })
