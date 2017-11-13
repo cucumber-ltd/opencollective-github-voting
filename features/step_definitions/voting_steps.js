@@ -13,21 +13,21 @@ Before(function() {
   }
 })
 
-Given('{issueIdentifier} exists', async function createAccount(accountName) {
-  await Account.create(this._accountUid(accountName), this.eventStore())
+Given('{issueIdentifier} exists', async function createAccount(issueIdentifier) {
+  await Account.create(this._accountUid(issueIdentifier), this.eventStore())
 })
 
-Given('{username} exists', async function createAccount(accountName) {
-  await Account.create(this._accountUid(accountName), this.eventStore())
+Given('{username} exists', async function createAccount(username) {
+  await Account.create(this._accountUid(username), this.eventStore())
 })
 
-Given('{username} has {int} votes', async function creditAccount(accountName, amount) {
-  const account = await this.repository().load(Account, this._accountUid(accountName))
+Given('{username} has {int} votes', async function creditAccount(username, amount) {
+  const account = await this.repository().load(Account, this._accountUid(username))
   await account.credit(amount)
 })
 
-Given('{issueIdentifier} has {int} votes', async function creditAccount(accountName, amount) {
-  const account = await this.repository().load(Account, this._accountUid(accountName))
+Given('{issueIdentifier} has {int} votes', async function creditAccount(issueIdentifier, amount) {
+  const account = await this.repository().load(Account, this._accountUid(issueIdentifier))
   await account.credit(amount)
 })
 
