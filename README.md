@@ -50,6 +50,8 @@ Both issues and users are modelled as `Account`s. Voting is modelled as `Transac
 
 ## TODO
 
-* Create a HTTP adapter
-* Develop logic for crediting (user) accounts based on donations and GitHub activity
-* Persist events
+* [x] Create a HTTP adapter
+* [ ] OAuth
+* [ ] Access Control
+* [ ] Develop logic for crediting (user) accounts based on donations and GitHub activity
+* [ ] Persist events
