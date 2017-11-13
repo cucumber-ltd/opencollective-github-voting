@@ -1,6 +1,6 @@
-const MemoryEventStore = require('../../../lib/eventstore/MemoryEventStore')
-const CommandBus = require('../../../lib/commandbus/CommandBus')
-const Repository = require('../../../lib/repository/Repository')
+const MemoryEventStore = require('../../../lib/infrastructure/eventstore/MemoryEventStore')
+const CommandBus = require('../../../lib/infrastructure/CommandBus')
+const Repository = require('../../../lib/infrastructure/Repository')
 const MemoryIssueStore = require('../../../lib/read/issue/MemoryIssueStore')
 const MemoryUserStore = require('../../../lib/read/user/MemoryUserStore')
 
