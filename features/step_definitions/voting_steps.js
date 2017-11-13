@@ -13,20 +13,23 @@ Before(function() {
   }
 })
 
-async function createAccount(accountName) {
+Given('{issueIdentifier} exists', async function createAccount(accountName) {
   await Account.create(this._accountUid(accountName), this.eventStore())
-}
+})
 
-Given('{issueIdentifier} exists', createAccount)
-Given('{username} exists', createAccount)
+Given('{username} exists', async function createAccount(accountName) {
+  await Account.create(this._accountUid(accountName), this.eventStore())
+})
 
-async function creditAccount(accountName, amount) {
+Given('{username} has {int} votes', async function creditAccount(accountName, amount) {
   const account = await this.repository().load(Account, this._accountUid(accountName))
   await account.credit(amount)
-}
+})
 
-Given('{username} has {int} votes', creditAccount)
-Given('{issueIdentifier} has {int} votes', creditAccount)
+Given('{issueIdentifier} has {int} votes', async function creditAccount(accountName, amount) {
+  const account = await this.repository().load(Account, this._accountUid(accountName))
+  await account.credit(amount)
+})
 
 When('{username} votes {int} on {issueIdentifier}', async function(username, amount, issueIdentifier) {
   const fromAccountUid = this._accountUid(username)
