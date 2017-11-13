@@ -8,10 +8,6 @@ const assembly = new AssemblyModule()
 
 class TheWorld {
   constructor() {
-    // From Assembly
-    this.commandBus = () => assembly.commandBus
-
-    // From Test Assembly
     this.votingPort = () => assembly.votingPort
   }
 }
