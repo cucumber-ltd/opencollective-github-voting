@@ -1,6 +1,6 @@
 const assert = require('assert')
 const { Given, When, Then } = require('cucumber')
-const { Account } = require('../../lib/domain/entities')
+const Account = require('../../lib/domain/entities/Account')
 
 Given('{username} exists', async function createAccount(username) {
   await this.votingPort().createUser(username)
