@@ -52,6 +52,8 @@ Both issues and users are modelled as `Account`s. Voting is modelled as `Transac
 
 * [x] Create a HTTP adapter
 * [ ] OAuth
+  * Use a separate route
 * [ ] Access Control
 * [ ] Develop logic for crediting (user) accounts based on donations and GitHub activity
 * [ ] Persist events
+* [ ] Replay events on startup
