@@ -17,6 +17,6 @@ In particular:
   * Imperative messages
   * This is how we represent "intent"
   * Access via external adapter (if connected)
-* `Then` steps can only consult *projections* (read models)
+* `Then` steps can only consult *projectors* (read models)
   * Query message
   * This is the only observable outcome
