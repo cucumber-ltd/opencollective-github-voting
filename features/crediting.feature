@@ -7,8 +7,12 @@ Feature: Crediting
   =====
   * One vote for each day since first commit to repo
 
-#  Scenario: @aslakhellesoy is credited for days
-#    Given @aslakhellesoy exists
-#    And @aslakhellesoy has been a committer for 300 days
-#    When @aslakhellesoy is credited for committer days
-#    Then @aslakhellesoy should have 300 votes left
+  Background:
+    Given the @bob:votes account exists
+    Given the @bob:dollars account exists
+
+  Scenario: @bob is credited 100 votes per dollar
+    Given the @bob:votes balance is 123
+    And the @bob:dollars balance is 2
+    When 2 is transferred from @bob:dollars to @bob:votes
+    Then the @bob:votes balance should be 323
