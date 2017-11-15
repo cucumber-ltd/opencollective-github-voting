@@ -7,8 +7,8 @@ Feature: Crediting
   =====
   * One vote for each day since first commit to repo
 
-  Scenario: @aslakhellesoy is credited for days
-    Given @aslakhellesoy exists
-    And @aslakhellesoy has been a committer for 300 days
-    When @aslakhellesoy is credited for committer days
-    Then @aslakhellesoy should have 300 votes left
+#  Scenario: @aslakhellesoy is credited for days
+#    Given @aslakhellesoy exists
+#    And @aslakhellesoy has been a committer for 300 days
+#    When @aslakhellesoy is credited for committer days
+#    Then @aslakhellesoy should have 300 votes left
