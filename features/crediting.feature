@@ -1,7 +1,4 @@
 Feature: Crediting
-  There are two ways to get voting power:
-  * "Buy" votes by donating to the OpenCollective
-  * "Earn" votes by being active on GitHub
 
   Rules
   =====
