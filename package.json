@@ -6,11 +6,18 @@
   "license": "MIT",
   "devDependencies": {
     "cucumber": "^3.1.0",
-    "node-fetch": "^1.7.3"
+    "cucumber-electron": "^2.3.1",
+    "electron": "^1.7.9",
+    "jsdom": "^11.3.0",
+    "mocha": "^4.0.1",
+    "node-fetch": "^1.7.3",
+    "sinon": "^4.1.2"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
+    "hyperx": "^2.3.2",
+    "preact": "^8.2.6",
     "uuid": "^3.1.0"
   }
 }

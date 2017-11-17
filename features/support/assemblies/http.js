@@ -1,11 +1,15 @@
 const Assembly = require('../../../lib/Assembly')
+const NullSignals = require('../../../test_support/NullSignals')
 const WebApp = require('../../../lib/server/WebApp')
 const HttpVotingPort = require('../../../lib/client/HttpVotingPort')
 
 module.exports = class HttpAssembly extends Assembly {
-  async start() {
-    await super.start()
+  constructor() {
+    super()
+  }
 
+  async start() {
+    super.start()
     this._webApp = new WebApp({ votingPort: this._votingPort, serveClient: false })
     const port = await this._webApp.listen(0)
     this._httpVotingPort = new HttpVotingPort(`http://localhost:${port}`)
@@ -18,7 +22,7 @@ module.exports = class HttpAssembly extends Assembly {
   }
 
   contextVotingPort() {
-    return this._votingPort
+    return this.votingPort
   }
 
   actionVotingPort() {
@@ -27,5 +31,9 @@ module.exports = class HttpAssembly extends Assembly {
 
   outcomeVotingPort() {
     return this._httpVotingPort
+  }
+
+  _makeAccountSignals() {
+    return new NullSignals()
   }
 }

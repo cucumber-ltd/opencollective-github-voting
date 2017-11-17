@@ -51,6 +51,7 @@ Both issues and users are modelled as `Account`s. Voting is modelled as `Transac
 ## TODO
 
 * [x] Create a HTTP adapter
+* [ ] UI
 * [ ] OAuth
   * Use a separate route
 * [ ] Access Control

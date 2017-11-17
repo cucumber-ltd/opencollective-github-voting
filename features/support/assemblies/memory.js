@@ -1,15 +1,20 @@
 const Assembly = require('../../../lib/Assembly')
+const NullSignals = require('../../../test_support/NullSignals')
 
 module.exports = class MemoryAssembly extends Assembly {
   contextVotingPort() {
-    return this._votingPort
+    return this.votingPort
   }
 
   actionVotingPort() {
-    return this._votingPort
+    return this.votingPort
   }
 
   outcomeVotingPort() {
-    return this._votingPort
+    return this.votingPort
+  }
+
+  _makeAccountSignals() {
+    return new NullSignals()
   }
 }

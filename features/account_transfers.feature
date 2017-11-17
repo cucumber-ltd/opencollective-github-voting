@@ -26,3 +26,9 @@ Feature: Account transfers
     And the @bob:dollars balance is 2
     When 2 is transferred from @bob:dollars to @bob:votes
     Then the @bob:votes balance should be 323
+
+  Scenario: @bob is credited 100 votes per dollar
+    Given the @bob:votes balance is 123
+    And the @bob:dollars balance is 2
+    When 2 is transferred from @bob:dollars to @bob:votes
+    Then the @bob:votes balance should be 323
