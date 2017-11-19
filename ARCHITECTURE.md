@@ -1,3 +1,17 @@
+
+# Background
+
+This patterns in this applications should be generally usable in other domains. They enable:
+
+* Sub-second acceptance test feedback
+* In-process UI testing
+* Testing in an asynchronous environment
+* Testing CQRS/EventSourced systems
+* Contract testing
+* Simulators
+* Server-push (WebSocket/EventSource)
+* Immediate consistency
+
 # Architecture
 
 This is braindump of the architecture design decisions that went into the app and its tests.

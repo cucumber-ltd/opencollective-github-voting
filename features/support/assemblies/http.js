@@ -1,18 +1,16 @@
+const fetch = require('node-fetch')
 const TestAssembly = require('./TestAssembly')
-const WebApp = require('../../../lib/server/WebApp')
 const HttpVotingPort = require('../../../lib/client/HttpVotingPort')
 
-// TODO: Extend from HttpAssembly - call this one HttpTestAssembly?
 module.exports = class HttpAssembly extends TestAssembly {
   async start() {
     await super.start()
     const port = await this.webApp.listen(0)
-    this._httpVotingPort = new HttpVotingPort(`http://localhost:${port}`)
+    this._httpVotingPort = new HttpVotingPort(`http://localhost:${port}`, fetch)
   }
 
   async stop() {
     await this.webApp.stop()
-
     await super.stop()
   }
 
