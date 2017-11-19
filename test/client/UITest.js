@@ -2,7 +2,6 @@ const assert = require('assert')
 const sinon = require('sinon')
 const { h, render } = require('preact')
 const { JSDOM } = require('jsdom')
-require('../../test_support/JsdomInputPatch')
 
 const { AccountList, VotingApp } = require('../../lib/client/UI')
 const AccountStore = require('../../lib/read/AccountStore')

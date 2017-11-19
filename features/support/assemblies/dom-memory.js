@@ -8,8 +8,10 @@ module.exports = class DomMemoryAssembly extends TestAssembly {
   constructor() {
     super()
 
+    const accountNumber = { owner: '@bob', currency: 'votes' }
+
     const $domNode = document.body
-    const props = {votingPort: this.votingPort, accountProjection: this.accountProjection}
+    const props = { votingPort: this.votingPort, accountStore: this.accountStore, accountNumber }
     render(h(VotingApp, props), $domNode)
     this._domVotingPort = new DomVotingPort($domNode)
     this._domAccountStore = new DomAccountList($domNode)

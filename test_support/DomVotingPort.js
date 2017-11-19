@@ -23,7 +23,17 @@ module.exports = class DomVotingPort {
 
     const toAccountNumberKey = `${toAccountNumber.owner}:${toAccountNumber.currency}`
     const $toAccount = this._$domNode.querySelector(`[data-account-number="${toAccountNumberKey}"]`)
-    $toAccount.querySelector('[aria-label="TransferAmount"]').value = String(amount)
+    const $amount = $toAccount.querySelector('[aria-label="TransferAmount"]')
+    $amount.value = String(amount)
+
+    // Trigger change event
+    const e = document.createEvent('UIEvents')
+    e.initEvent('change', true, true)
+    $amount.dispatchEvent(e)
+
     $toAccount.querySelector('[aria-label="Transfer"]').click()
+
+    // Synchronise. This won't work as soon as we have true asynchronicity (I/O - HTTP)
+    await new Promise(resolve => process.nextTick(resolve))
   }
 }
