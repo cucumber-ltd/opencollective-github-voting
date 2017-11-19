@@ -1,39 +1,26 @@
-const Assembly = require('../../../lib/Assembly')
-const NullSignals = require('../../../test_support/NullSignals')
+const TestAssembly = require('./TestAssembly')
 const WebApp = require('../../../lib/server/WebApp')
 const HttpVotingPort = require('../../../lib/client/HttpVotingPort')
 
-module.exports = class HttpAssembly extends Assembly {
-  constructor() {
-    super()
-  }
-
+// TODO: Extend from HttpAssembly - call this one HttpTestAssembly?
+module.exports = class HttpAssembly extends TestAssembly {
   async start() {
-    super.start()
-    this._webApp = new WebApp({ votingPort: this._votingPort, serveClient: false })
-    const port = await this._webApp.listen(0)
+    await super.start()
+    const port = await this.webApp.listen(0)
     this._httpVotingPort = new HttpVotingPort(`http://localhost:${port}`)
   }
 
   async stop() {
-    await this._webApp.stop()
+    await this.webApp.stop()
 
     await super.stop()
   }
 
-  contextVotingPort() {
-    return this.votingPort
-  }
-
-  actionVotingPort() {
+  get actionVotingPort() {
     return this._httpVotingPort
   }
 
-  outcomeVotingPort() {
+  get outcomeAccountStore() {
     return this._httpVotingPort
-  }
-
-  _makeAccountSignals() {
-    return new NullSignals()
   }
 }

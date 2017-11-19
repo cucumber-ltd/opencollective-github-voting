@@ -1,36 +1,25 @@
-const Preact = require('preact')
-const { h } = Preact
-const Assembly = require('../../../lib/Assembly')
+const { h, render } = require('preact')
+const TestAssembly = require('./TestAssembly')
 const DomVotingPort = require('../../../test_support/DomVotingPort')
-const VotingList = require('../../../lib/client/UI')
-const PreactSignals = require('../../../lib/client/PreactSignals')
+const DomAccountList = require('../../../test_support/DomAccountList')
+const { VotingApp } = require('../../../lib/client/UI')
 
-module.exports = class DomMemoryAssembly extends Assembly {
+module.exports = class DomMemoryAssembly extends TestAssembly {
   constructor() {
     super()
 
-    // Establish circular dependency
-    // TODO: Split projection into projector and store to avoid this
-    this.accountSignals.accountProjection = this.accountProjection
-
-    const domNode = document.body
-    Preact.render(h(VotingList, {votingPort: this._votingPort}), domNode)
-    this._domVotingPort = new DomVotingPort(domNode)
+    const $domNode = document.body
+    const props = {votingPort: this.votingPort, accountProjection: this.accountProjection}
+    render(h(VotingApp, props), $domNode)
+    this._domVotingPort = new DomVotingPort($domNode)
+    this._domAccountStore = new DomAccountList($domNode)
   }
 
-  contextVotingPort() {
-    return this.votingPort
-  }
-
-  actionVotingPort() {
+  get actionVotingPort() {
     return this._domVotingPort
   }
 
-  outcomeVotingPort() {
-    return this._domVotingPort
-  }
-
-  _makeAccountSignals() {
-    return new PreactSignals()
+  get outcomeAccountStore() {
+    return this._domAccountStore
   }
 }

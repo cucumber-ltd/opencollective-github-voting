@@ -1,8 +1,14 @@
+const assert = require('assert')
+
+/**
+ * This class implements the VotingPort command interface
+ */
 module.exports = class DomVotingPort {
-  constructor(domNode) {
-    this._domNode = domNode
+  constructor($domNode) {
+    this._$domNode = $domNode
   }
 
+  // TODO: Rename to DomTransferApi (one contract per method)
   async createAccount(accountNumber) {
     throw new Error('Unsupported Operation')
   }
@@ -12,13 +18,12 @@ module.exports = class DomVotingPort {
   }
 
   async transfer(fromAccountNumber, toAccountNumber, amount) {
-    const _toAccountNumber = `${toAccountNumber.owner}:${toAccountNumber.currency}`
-    const $toAccount = this._domNode.querySelector(`[data-account-number="${_toAccountNumber}"]`)
-    $toAccount.querySelector('[aria-label="Amount"]').value = String(amount)
-    $toAccount.querySelector('[aria-label="Transfer"]').click()
-  }
+    assert.equal(this._$domNode.querySelector('[aria-label=MyAccountOwner]').textContent, fromAccountNumber.owner)
+    assert.equal(this._$domNode.querySelector('[aria-label=MyAccountCurrency]').textContent, fromAccountNumber.currency)
 
-  async getAccount(accountNumber) {
-    throw new Error('Not me')
+    const toAccountNumberKey = `${toAccountNumber.owner}:${toAccountNumber.currency}`
+    const $toAccount = this._$domNode.querySelector(`[data-account-number="${toAccountNumberKey}"]`)
+    $toAccount.querySelector('[aria-label="TransferAmount"]').value = String(amount)
+    $toAccount.querySelector('[aria-label="Transfer"]').click()
   }
 }
