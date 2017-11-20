@@ -49,12 +49,10 @@ describe('AccountProjection', () => {
       {
         accountNumber: { owner: '@matt', currency: 'votes' },
         balance: 42,
-        uid: 3
       },
       {
         accountNumber: { owner: '@aslak', currency: 'votes' },
         balance: 22,
-        uid: 1
       }
     ])
   })

@@ -19,5 +19,4 @@ const makeAccount = $account => ({
     currency: $account.querySelector('[aria-label="Currency"]').textContent,
   },
   balance: parseInt($account.querySelector('[aria-label="Balance"]').textContent),
-  uid: $account.querySelector('[aria-label="Uid"]').textContent,
 })

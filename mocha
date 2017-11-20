@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-node node_modules/.bin/mocha --recursive "$@"
+node node_modules/.bin/mocha "$@"
