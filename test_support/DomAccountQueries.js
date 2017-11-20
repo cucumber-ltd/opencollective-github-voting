@@ -1,7 +1,4 @@
-/**
- * This class implements the AccountStore query interface
- */
-module.exports = class DomAccountList {
+module.exports = class DomAccountQueries {
   constructor($domNode) {
     this._$domNode = $domNode
   }

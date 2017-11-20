@@ -4,8 +4,8 @@ const { h, render } = require('preact')
 const { JSDOM } = require('jsdom')
 
 const { AccountList, VotingApp } = require('../../lib/client/UI')
-const AccountStore = require('../../lib/read/AccountStore')
-const DomAccountList = require('../../test_support/DomAccountList')
+const AccountStore = require('../../lib/read/AccountQueries')
+const DomAccountList = require('../../test_support/DomAccountQueries')
 const DomVotingPort = require('../../test_support/DomTransferCommands')
 
 // TODO: Turn this into a contract test? Could be done, but that would be very similar to the cukes

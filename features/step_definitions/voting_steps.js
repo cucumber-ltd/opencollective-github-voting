@@ -14,6 +14,6 @@ When('{int} is transferred from {accountNumber} to {accountNumber}', async funct
 })
 
 Then('the {accountNumber} balance should be {int}', async function(accountNumber, expectedBalance) {
-  const account = await this.outcomeAccountStore.getAccount(accountNumber)
+  const account = await this.outcomeAccountQueries.getAccount(accountNumber)
   assert.equal(account.balance, expectedBalance)
 })

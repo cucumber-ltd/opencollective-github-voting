@@ -1,16 +1,16 @@
 const assert = require('assert')
 const sinon = require('sinon')
 const AccountProjection = require('../../lib/read/AccountProjection')
-const AccountStore = require('../../lib/read/AccountStore')
+const AccountQueries = require('../../lib/read/AccountQueries')
 
 // TODO: Split up in projection and store tests? Or is it more pragmatic to test them together?
 
 describe('AccountProjection', () => {
 
-  let projection, store
+  let projection, queries
   beforeEach(() => {
-    store = new AccountStore()
-    projection = new AccountProjection(store)
+    queries = new AccountQueries()
+    projection = new AccountProjection(queries)
   })
 
   it('signals accountUpdated on creation', async () => {
@@ -18,7 +18,7 @@ describe('AccountProjection', () => {
     const entityUid = '123'
     const accountNumber = { owner: '@aslak', currency: 'votes' }
 
-    store.on('accountUpdated', accountCreated)
+    queries.on('accountUpdated', accountCreated)
     await projection.onAccountCreatedEvent({ entityUid, accountNumber })
     assert(accountCreated.calledWith(accountNumber))
   })
@@ -29,7 +29,7 @@ describe('AccountProjection', () => {
     const accountNumber = { owner: '@aslak', currency: 'votes' }
 
     await projection.onAccountCreatedEvent({ entityUid, accountNumber })
-    store.on('accountUpdated', accountUpdated)
+    queries.on('accountUpdated', accountUpdated)
     await projection.onAccountCreditedEvent({ entityUid, amount: 22 })
     assert(accountUpdated.calledWith(accountNumber))
   })
@@ -44,7 +44,7 @@ describe('AccountProjection', () => {
     await projection.onAccountCreatedEvent({ entityUid: '3', accountNumber: { owner: '@matt', currency: 'votes' } })
     await projection.onAccountCreditedEvent({ entityUid: '3', amount: 42 })
 
-    const accounts = await store.getAccounts('votes')
+    const accounts = await queries.getAccounts('votes')
     assert.deepEqual(accounts, [
       {
         accountNumber: { owner: '@matt', currency: 'votes' },

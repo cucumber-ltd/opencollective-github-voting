@@ -1,7 +1,7 @@
 const fetch = require('node-fetch')
 const TestAssembly = require('./TestAssembly')
 const HttpTransferCommands = require('../../../lib/client/HttpTransferCommands')
-const HttpAccountStore = require('../../../lib/client/HttpAccountStore')
+const HttpAccountQueries = require('../../../lib/client/HttpAccountQueries')
 
 module.exports = class HttpAssembly extends TestAssembly {
   async start() {
@@ -9,7 +9,7 @@ module.exports = class HttpAssembly extends TestAssembly {
     const port = await this.webApp.listen(0)
     const baseUrl = `http://localhost:${port}`
     this._httpTransferCommands = new HttpTransferCommands(baseUrl, fetch)
-    this._httpAccountStore = new HttpAccountStore(baseUrl, fetch)
+    this._httpAccountQueries = new HttpAccountQueries(baseUrl, fetch)
   }
 
   async stop() {
@@ -21,7 +21,7 @@ module.exports = class HttpAssembly extends TestAssembly {
     return this._httpTransferCommands
   }
 
-  get outcomeAccountStore() {
-    return this._httpAccountStore
+  get outcomeAccountQueries() {
+    return this._httpAccountQueries
   }
 }

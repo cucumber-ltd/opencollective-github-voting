@@ -5,7 +5,7 @@ module.exports = class MemoryAssembly extends TestAssembly {
     return this.transferCommands
   }
 
-  get outcomeAccountStore() {
-    return this.accountStore
+  get outcomeAccountQueries() {
+    return this.accountQueries
   }
 }
