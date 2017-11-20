@@ -1,12 +1,15 @@
 const fetch = require('node-fetch')
 const TestAssembly = require('./TestAssembly')
-const HttpVotingPort = require('../../../lib/client/HttpVotingPort')
+const HttpTransferCommands = require('../../../lib/client/HttpTransferCommands')
+const HttpAccountStore = require('../../../lib/client/HttpAccountStore')
 
 module.exports = class HttpAssembly extends TestAssembly {
   async start() {
     await super.start()
     const port = await this.webApp.listen(0)
-    this._httpVotingPort = new HttpVotingPort(`http://localhost:${port}`, fetch)
+    const baseUrl = `http://localhost:${port}`
+    this._httpTransferCommands = new HttpTransferCommands(baseUrl, fetch)
+    this._httpAccountStore = new HttpAccountStore(baseUrl, fetch)
   }
 
   async stop() {
@@ -14,11 +17,11 @@ module.exports = class HttpAssembly extends TestAssembly {
     await super.stop()
   }
 
-  get actionVotingPort() {
-    return this._httpVotingPort
+  get actionTransferCommands() {
+    return this._httpTransferCommands
   }
 
   get outcomeAccountStore() {
-    return this._httpVotingPort
+    return this._httpAccountStore
   }
 }

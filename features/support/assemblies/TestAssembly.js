@@ -9,15 +9,15 @@ module.exports = class TestAssembly extends AppAssembly {
   /**
    * The port to use in Given steps. Don't override this method.
    */
-  get contextVotingPort() {
-    return this.votingPort
+  get contextAccountCommands() {
+    return this.accountCommands
   }
 
-  get actionVotingPort() {
-   throw new Error('Override')
+  get actionTransferCommands() {
+   throw new Error('Override actionTransferCommands')
   }
 
   get outcomeAccountStore() {
-    throw new Error('Override')
+    throw new Error('Override outcomeAccountStore')
   }
 }

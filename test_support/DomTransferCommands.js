@@ -1,20 +1,8 @@
 const assert = require('assert')
 
-/**
- * This class implements the VotingPort command interface
- */
-module.exports = class DomVotingPort {
+module.exports = class DomTransferCommands {
   constructor($domNode) {
     this._$domNode = $domNode
-  }
-
-  // TODO: Rename to DomTransferApi (one contract per method)
-  async createAccount(accountNumber) {
-    throw new Error('Unsupported Operation')
-  }
-
-  async creditAccount(accountNumber, amount) {
-    throw new Error('Unsupported Operation')
   }
 
   async transfer(fromAccountNumber, toAccountNumber, amount) {
