@@ -23,6 +23,13 @@ scenarios only interact with the `*Commands` and `*Queries` APIs.
 This leads to less duplication of code and better composability as these small components are easier to implement
 at various layers of the stack (`Dom*Commands`, `Http*Queries` etc).
 
+## Tiny Express routers
+
+Every `*Commands` and `*Queries` component is wrapped by a tiny Express router, which is easy to reason about.
+There is a `makeWebApp` function that builds the entire webapp.
+
+The Web Server (http) is extracted to a framework component.
+
 ## Explicit subscription
 
 In order to receive signals (over eventsource), a client first needs to subscribe. No signals flow without a subscription.
