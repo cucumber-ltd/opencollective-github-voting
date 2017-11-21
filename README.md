@@ -52,9 +52,21 @@ Both issues and users are modelled as `Account`s. Voting is modelled as `Transac
 
 * [x] Create a HTTP adapter
 * [x] UI
-* [ ] OAuth
+  * [ ] Styling
+  * [ ] Autoreload
+    * [ ] Webpack middleware
+    * [ ] Reload page on change
+* [ ] GitHub OAuth
   * Use a separate route
 * [ ] Access Control
-* [ ] Develop logic for crediting (user) accounts based on donations and GitHub activity
+* [ ] Account imports
+  * [ ] OpenCollective donations
+    * [x] Importer
+    * [ ] Batch job/fetcher
+  * [ ] GitHub activity
+    * [ ] Importer (trigger on first login)
+    * [ ] Batch job/fetcher
+  * Transfer job (USD-> votes, GitHub activity -> votes)
+* [ ] Link imported accounts to logged in user
 * [ ] Persist events
 * [ ] Replay events on startup

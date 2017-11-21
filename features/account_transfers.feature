@@ -20,10 +20,3 @@ Feature: Account transfers
     When 10 is transferred from @bob:votes to #250:votes
     Then the #250:votes balance should be 12
     And the @bob:votes balance should be 5
-
-  @batch
-  Scenario: @bob is credited 100 votes per dollar
-    Given the @bob:votes balance is 123
-    And the @bob:dollars balance is 2
-    When 2 is transferred from @bob:dollars to @bob:votes
-    Then the @bob:votes balance should be 323
