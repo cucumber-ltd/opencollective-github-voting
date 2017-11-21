@@ -1,20 +1,20 @@
 const assert = require('assert')
-const AccountProjection = require('../../lib/read/AccountProjection')
+const AccountProjector = require('../../lib/read/AccountProjector')
 const AccountQueries = require('../../lib/read/AccountQueries')
 
-describe('AccountProjection', () => {
+describe('AccountProjector', () => {
   const accountNumber = { owner: '@aslak', currency: 'votes' }
 
-  let projection, queries
+  let projector, queries
   beforeEach(async () => {
     // We're using a real instance rather than a mock, because the queries interface is too cumbersome to mock
     queries = new AccountQueries()
-    projection = new AccountProjection(queries)
+    projector = new AccountProjector(queries)
 
-    await projection.onAccountCreatedEvent({ entityUid: '1', accountNumber })
-    await projection.onAccountCreditedEvent({ entityUid: '1', amount: 30, uniqueReference: 'ref-100' })
-    await projection.onAccountDebitedEvent({ entityUid: '1', amount: 9, uniqueReference: 'ref-101' })
-    await projection.onAccountCreditedEvent({ entityUid: '1', amount: 11, uniqueReference: 'ref-102' })
+    await projector.onAccountCreatedEvent({ entityUid: '1', accountNumber })
+    await projector.onAccountCreditedEvent({ entityUid: '1', amount: 30, uniqueReference: 'ref-100' })
+    await projector.onAccountDebitedEvent({ entityUid: '1', amount: 9, uniqueReference: 'ref-101' })
+    await projector.onAccountCreditedEvent({ entityUid: '1', amount: 11, uniqueReference: 'ref-102' })
   })
 
   it('updates account balance and stores transactions', async () => {
