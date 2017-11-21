@@ -1,6 +1,6 @@
 const AppAssembly = require('./lib/AppAssembly')
 const assembly = new AppAssembly()
 const port = parseInt(process.env.PORT || 8080)
-assembly.webApp.listen(port)
+assembly.webServer.listen(port)
   .then(port => console.log(`http://localhost:${port}`))
   .catch(err => console.err(err))
