@@ -8,7 +8,7 @@ const TestAssembly = require('./TestAssembly')
 module.exports = class HttpAssembly extends TestAssembly {
   async start() {
     await super.start()
-    const port = await this.webApp.listen(0)
+    const port = await this.webServer.listen(0)
     const baseUrl = `http://localhost:${port}`
     const restClient = new RestClient(baseUrl, fetch, EventSource)
 
@@ -17,7 +17,7 @@ module.exports = class HttpAssembly extends TestAssembly {
   }
 
   async stop() {
-    await this.webApp.stop()
+    await this.webServer.stop()
     await super.stop()
   }
 
