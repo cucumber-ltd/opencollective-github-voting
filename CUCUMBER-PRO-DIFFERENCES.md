@@ -22,3 +22,16 @@ scenarios only interact with the `*Commands` and `*Queries` APIs.
 
 This leads to less duplication of code and better composability as these small components are easier to implement
 at various layers of the stack (`Dom*Commands`, `Http*Queries` etc).
+
+## Explicit subscription
+
+In order to receive signals (over eventsource), a client first needs to subscribe. No signals flow without a subscription.
+This simplifies access control, since it can be done at the time of subscription.
+
+Subscription can be done at two levels:
+- As a command, going through the whole CQRS pipeline
+- Against the read-model only
+Not sure what's best
+
+https://groups.google.com/forum/#!topic/dddcqrs/Pwow6c0cqec
+https://www.bouvet.no/bouvet-deler/utbrudd/a-simple-todo-application-a-comparison-on-traditional-vs-cqrs-es-architecture
