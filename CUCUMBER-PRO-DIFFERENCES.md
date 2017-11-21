@@ -46,3 +46,16 @@ Not sure what's best
 
 https://groups.google.com/forum/#!topic/dddcqrs/Pwow6c0cqec
 https://www.bouvet.no/bouvet-deler/utbrudd/a-simple-todo-application-a-comparison-on-traditional-vs-cqrs-es-architecture
+
+# DX
+
+## No Webpack, no Babel
+
+The app doesn't use JSX, but a more lightweight alternative ([hyperx](https://github.com/substack/hyperx)).
+This allows writing JSX-like templates without the need for (slow) Babel transpilation.
+
+UI test use Cucumber-Electron running in the same process as the server, so no Webpack is needed for tests.
+
+Webpack is only used for production.
+
+TODO: Write a decent webpack middleware

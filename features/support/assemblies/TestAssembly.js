@@ -14,7 +14,11 @@ module.exports = class TestAssembly extends AppAssembly {
   }
 
   get actionTransferCommands() {
-   throw new Error('Override actionTransferCommands')
+    throw new Error('Override actionTransferCommands')
+  }
+
+  get actionOpenCollectiveCommands() {
+    return this.openCollectiveCommands
   }
 
   get outcomeAccountStore() {
