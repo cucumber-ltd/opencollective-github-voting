@@ -30,6 +30,10 @@ There is a `makeWebApp` function that builds the entire webapp.
 
 The Web Server (http) is extracted to a framework component.
 
+These routes can be displayed with:
+
+    node scripts/routes.js
+
 ## Explicit subscription
 
 In order to receive signals (over eventsource), a client first needs to subscribe. No signals flow without a subscription.
