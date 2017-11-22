@@ -16,11 +16,11 @@ async function start() {
   const aslakVotes = {owner: '@aslakhellesoy', currency: 'votes'}
   await A.createAccount(aslakVotes)
 
-  const aslakDollars = {owner: '@aslakhellesoy', currency: 'dollars'}
+  const aslakDollars = {owner: '@aslakhellesoy', currency: 'USD'}
   await A.createAccount(aslakDollars)
-  await A.creditAccount(aslakDollars, 500)
+  await A.creditAccount(aslakDollars, 500, 'opencollective-234123412341')
   await X.transfer(aslakDollars, aslakVotes, 400)
 }
 
-start().catch(err => console.err(err))
+start().catch(err => console.error(err))
 
