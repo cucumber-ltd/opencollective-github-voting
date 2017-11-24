@@ -9,7 +9,7 @@ module.exports = class DomMemoryAssembly extends TestAssembly {
     super()
 
     // TODO: Get this from a provider
-    const accountNumber = { owner: '@bob', currency: 'votes' }
+    const accountNumber = { number: '@bob', currency: 'votes' }
 
     const $domNode = document.body
     const props = { transferCommands: this.transferCommands, accountQueries: this.accountQueries, accountNumber }

@@ -4,7 +4,7 @@ module.exports = class DomAccountQueries {
   }
 
   async getAccount(accountNumber) {
-    return makeAccount(this._$domNode.querySelector(`[data-account-number="${accountNumber.owner}:${accountNumber.currency}"]`))
+    return makeAccount(this._$domNode.querySelector(`[data-account-number="${accountNumber.number}:${accountNumber.currency}"]`))
   }
 
   async getAccounts(currency) {
@@ -15,7 +15,7 @@ module.exports = class DomAccountQueries {
 
 const makeAccount = $account => ({
   accountNumber: {
-    owner: $account.querySelector('[aria-label="Owner"]').textContent,
+    number: $account.querySelector('[aria-label="Owner"]').textContent,
     currency: $account.querySelector('[aria-label="Currency"]').textContent,
   },
   balance: parseInt($account.querySelector('[aria-label="Balance"]').textContent),

@@ -6,10 +6,10 @@ module.exports = class DomTransferCommands {
   }
 
   async transfer(fromAccountNumber, toAccountNumber, amount) {
-    assert.equal(this._$domNode.querySelector('[aria-label=MyAccountOwner]').textContent, fromAccountNumber.owner)
+    assert.equal(this._$domNode.querySelector('[aria-label=MyAccountOwner]').textContent, fromAccountNumber.number)
     assert.equal(this._$domNode.querySelector('[aria-label=MyAccountCurrency]').textContent, fromAccountNumber.currency)
 
-    const toAccountNumberKey = `${toAccountNumber.owner}:${toAccountNumber.currency}`
+    const toAccountNumberKey = `${toAccountNumber.number}:${toAccountNumber.currency}`
     const $toAccount = this._$domNode.querySelector(`[data-account-number="${toAccountNumberKey}"]`)
     const $amount = $toAccount.querySelector('[aria-label="TransferAmount"]')
     $amount.value = String(amount)

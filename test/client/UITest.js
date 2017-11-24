@@ -12,11 +12,11 @@ const DomTransferCommands = require('../../test_support/DomTransferCommands')
 
 const accounts = [
   {
-    accountNumber: { owner: 'cucumber/cucumber#250', currency: 'votes' },
+    accountNumber: { number: 'cucumber/cucumber#250', currency: 'votes' },
     balance: 21,
   },
   {
-    accountNumber: { owner: 'cucumber/cucumber#350', currency: 'votes' },
+    accountNumber: { number: 'cucumber/cucumber#350', currency: 'votes' },
     balance: 11,
   }
 ]
@@ -38,7 +38,7 @@ describe('UI', () => {
   })
 
   it("makes a transfer", async () => {
-    const accountNumber = { owner: '@aslak', currency: 'votes' }
+    const accountNumber = { number: '@aslak', currency: 'votes' }
 
     const transferCommands = {
       transfer: sinon.spy(() => Promise.resolve())

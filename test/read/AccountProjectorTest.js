@@ -3,7 +3,7 @@ const AccountProjector = require('../../lib/read/AccountProjector')
 const AccountQueries = require('../../lib/read/AccountQueries')
 
 describe('AccountProjector', () => {
-  const accountNumber = { owner: '@aslak', currency: 'votes' }
+  const accountNumber = { number: '@aslak', currency: 'votes' }
 
   let projector, queries
   beforeEach(async () => {
@@ -20,7 +20,7 @@ describe('AccountProjector', () => {
   it('updates account balance and stores transactions', async () => {
     const account = await queries.getAccount(accountNumber)
     assert.deepEqual(account, {
-      accountNumber: { owner: '@aslak', currency: 'votes' },
+      accountNumber: { number: '@aslak', currency: 'votes' },
       balance: 32,
       transactions: [
         {
