@@ -1,14 +1,18 @@
 const AppAssembly = require('../../../lib/AppAssembly')
+const SimulatedCommitsBalanceProvider = require('../../../test_support/SimulatedCommitsBalanceProvider')
 
 /**
  * Base class for test assemblies
- *
- * @type {module.TestAssembly}
  */
 module.exports = class TestAssembly extends AppAssembly {
-  /**
-   * The port to use in Given steps. Don't override this method.
-   */
+  constructor() {
+    const simulatedCommitDaysBalanceProvider = new SimulatedCommitsBalanceProvider()
+    super({ commitDaysBalanceProvider: simulatedCommitDaysBalanceProvider })
+    this.simulatedCommitDaysBalanceProvider = simulatedCommitDaysBalanceProvider
+  }
+
+  // The ports to use in Given steps. Don't override these methods.
+
   get contextAccountCommands() {
     return this.accountCommands
   }

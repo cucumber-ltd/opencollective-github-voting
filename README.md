@@ -50,6 +50,11 @@ Both issues and users are modelled as `Account`s. Voting is modelled as `Transac
 
 ## TODO
 
+* [ ] Remove `owner` from `accountNumber`
+  * `ban = { number, currency }` - the number can have strings, it's just a unique id
+  * Make new `AccountOwner` entity
+* [ ] Pass uid when creating entity - https://github.com/gregoryyoung/m-r/issues/17
+
 * [x] Create a HTTP adapter
 * [x] UI
   * [ ] Styling
