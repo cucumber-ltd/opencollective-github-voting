@@ -4,6 +4,11 @@ const promisify = require('util.promisify')
 const readFileAsync = promisify(readFile)
 
 defineParameterType({
+  name: 'username',
+  regexp: /(@[\w-#/]+)/,
+})
+
+defineParameterType({
   name: 'accountNumber',
   regexp: /([\w-@#/]+):(\w+)/,
   transformer(number, currency) {

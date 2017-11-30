@@ -1,5 +1,5 @@
 const verifyContract = require('./verifyAccountQueriesContract')
 
 describe('AccountQueries', () => {
-  verifyContract(async accountQueries => accountQueries)
+  verifyContract(async ({ sigSub, accountStore }) => accountStore)
 })

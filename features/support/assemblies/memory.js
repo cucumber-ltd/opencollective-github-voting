@@ -5,7 +5,15 @@ module.exports = class MemoryAssembly extends TestAssembly {
     return this.transferCommands
   }
 
+  get actionUserCommands() {
+    return this.userCommands
+  }
+
   get outcomeAccountQueries() {
     return this.accountQueries
+  }
+
+  get contextSigSub() {
+    return this.sigSub
   }
 }

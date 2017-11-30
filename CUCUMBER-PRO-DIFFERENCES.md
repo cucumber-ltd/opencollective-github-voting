@@ -39,13 +39,23 @@ These routes can be displayed with:
 In order to receive signals (over eventsource), a client first needs to subscribe. No signals flow without a subscription.
 This simplifies access control, since it can be done at the time of subscription.
 
-Subscription can be done at two levels:
-- As a command, going through the whole CQRS pipeline
-- Against the read-model only
-Not sure what's best
+When new data is saved in a `*Queries` store, it *schedules* signals to be sent to subscribers.
+The scheduled signals will be flushed when `flushScheduledSignals` is called.
 
-https://groups.google.com/forum/#!topic/dddcqrs/Pwow6c0cqec
-https://www.bouvet.no/bouvet-deler/utbrudd/a-simple-todo-application-a-comparison-on-traditional-vs-cqrs-es-architecture
+This allows `Then` steps to explicitly flush the signals, and querying the `*Queries` only after receiving
+the signal. This verifies that both the signal part and the query part works as expected, and no
+polling is required -> fast, predictable tests.
+
+## Assemblies
+
+Each Assembly represents a hexagon (both the outer and inner part). There are three assemblies:
+
+* `ServerAssembly`
+* `ClientAssebly`
+* `TestAssembly`
+
+There are several implementations of `TestAssembly`, and they are responsible for building both the
+`ServerAssembly` and `ClientAssembly`
 
 # DX
 

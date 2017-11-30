@@ -74,3 +74,10 @@ Secondary test components implement the *same* API/contract as AppAssembly ports
 adapters (such as the `WebApp`) via the external API offered by the adapter.
 
 Example: `HttpVotingPort`. (Plays the role of 2ndary comp in some tests, but also used in the Browser app!)
+
+### PubSub
+
+The `*Queries` components can be queried directly. They also provide a pub/sub API to get notifications
+when a read model has changed.
+
+Cucumber `Then` steps should *always* query read models inside a `subscribe`

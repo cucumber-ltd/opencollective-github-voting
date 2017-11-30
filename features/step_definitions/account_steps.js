@@ -16,6 +16,17 @@ When('{int} is transferred from {accountNumber} to {accountNumber}', async funct
 })
 
 Then('the {accountNumber} balance should be {int}', async function(accountNumber, expectedBalance) {
-  const account = await this.outcomeAccountQueries.getAccount(accountNumber)
-  assert.equal(account.balance, expectedBalance)
+  const subscriptionKey = {
+    type: 'accountNumber',
+    filter: accountNumber
+  }
+
+  const subscription = await this.outcomeAccountQueries.subscribe(subscriptionKey, async () => {
+    const account = await this.outcomeAccountQueries.getAccount(accountNumber)
+    assert.equal(account.balance, expectedBalance)
+  })
+
+  // Even though we're in a When step, use the sigSub from Given/When
+  await this.contextSigSub.flushScheduledSignals(true)
+  await subscription.delivered(1)
 })

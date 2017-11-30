@@ -17,7 +17,15 @@ module.exports = class TestAssembly extends AppAssembly {
     throw new Error('Override actionTransferCommands')
   }
 
-  get outcomeAccountStore() {
-    throw new Error('Override outcomeAccountStore')
+  get actionUserCommands() {
+    throw new Error('Override actionUserCommands')
+  }
+
+  get outcomeAccountQueries() {
+    throw new Error('Override outcomeAccountQueries')
+  }
+
+  get outcomeUserQueries() {
+    throw new Error('Override outcomeUserQueries')
   }
 }
