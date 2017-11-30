@@ -1,7 +1,8 @@
 const assert = require('assert')
 
 module.exports = class DomTransferCommands {
-  constructor($domNode) {
+  constructor({ $domNode }) {
+    if (!$domNode) throw new Error('No $domNode')
     this._$domNode = $domNode
   }
 

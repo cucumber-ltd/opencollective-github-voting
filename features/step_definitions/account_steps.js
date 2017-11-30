@@ -21,12 +21,12 @@ Then('the {accountNumber} balance should be {int}', async function(accountNumber
     filter: accountNumber
   }
 
-  const subscription = await this.outcomeAccountQueries.subscribe(subscriptionKey, async () => {
-    const account = await this.outcomeAccountQueries.getAccount(accountNumber)
+  const subscription = await this.accountQueries.subscribe(subscriptionKey, async () => {
+    const account = await this.accountQueries.getAccount(accountNumber)
     assert.equal(account.balance, expectedBalance)
   })
 
   // Even though we're in a When step, use the pubSub from Given/When
-  await this.contextPubSub.flushScheduledSignals(true)
+  await this.pubSub.flushScheduledSignals(true)
   await subscription.delivered(1)
 })

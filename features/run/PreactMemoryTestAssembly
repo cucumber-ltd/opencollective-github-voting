@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+CUCUMBER_ASSEMBLY=PreactMemoryTestAssembly node node_modules/.bin/cucumber-electron --tags "not @batch" "$@"

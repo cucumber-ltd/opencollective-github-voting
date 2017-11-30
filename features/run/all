@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-features/run/memory && \
-features/run/http && \
-features/run/dom-memory

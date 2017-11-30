@@ -17,12 +17,12 @@ describe('EventSourcePubSub', () => {
     webApp.use(bodyParser.json())
     webApp.use(bodyParser.text())
     webApp.use(pubSubRouter(pubSub))
-
     webServer = new WebServer(webApp)
+    const restClient = new RestClient({ fetch, EventSource })
     const port = await webServer.listen(0)
     const baseUrl = `http://localhost:${port}`
-    const restClient = new RestClient(baseUrl, fetch, EventSource)
-    return new EventSourcePubSub(restClient)
+    await restClient.start({ baseUrl })
+    return new EventSourcePubSub({ restClient })
   })
 
   afterEach(async () => {

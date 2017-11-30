@@ -1,4 +1,4 @@
-const AppAssembly = require('./lib/AppAssembly')
+const AppAssembly = require('./lib/ServerAssembly')
 const assembly = new AppAssembly()
 const port = parseInt(process.env.PORT || 8080)
 

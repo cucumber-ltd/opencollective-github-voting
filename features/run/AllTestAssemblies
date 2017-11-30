@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+features/run/MemoryTestAssembly && \
+features/run/HttpTestAssembly && \
+features/run/PreactMemoryTestAssembly

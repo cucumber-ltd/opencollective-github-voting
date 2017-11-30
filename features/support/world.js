@@ -1,6 +1,6 @@
 const { setWorldConstructor, Before, After } = require('cucumber')
 
-const assemblyName = process.env.CUCUMBER_ASSEMBLY || 'memory'
+const assemblyName = process.env.CUCUMBER_ASSEMBLY || 'MemoryAssembly'
 console.log(`🥒 ${assemblyName}`)
 
 const AssemblyModule = require(`./assemblies/${assemblyName}`)

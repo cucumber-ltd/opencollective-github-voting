@@ -16,10 +16,11 @@ describe('HttpAccountQueries', () => {
     webServer = new WebServer(webApp)
     const port = await webServer.listen(0)
     const baseUrl = `http://localhost:${port}`
-    const restClient = new RestClient(baseUrl, fetch, EventSource)
-    eventSourcePubSub = new EventSourcePubSub(restClient)
+    const restClient = new RestClient({ fetch, EventSource })
+    await restClient.start({ baseUrl })
+    eventSourcePubSub = new EventSourcePubSub({ restClient })
     await eventSourcePubSub.start()
-    return new HttpAccountQueries(restClient, eventSourcePubSub)
+    return new HttpAccountQueries({ restClient, pubSub: eventSourcePubSub })
   })
 
   afterEach(async () => {

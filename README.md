@@ -50,7 +50,9 @@ Both issues and users are modelled as `Account`s. Voting is modelled as `Transac
 
 ## TODO
 
-* [ ] Rename pubsub to sigsub everywhere
+* [ ] Plug assemblies directly into each other, like hexagonal legos.
+* [x] Delegate assemblies (no inheritance)
+* [x] Rename pubsub to sigsub everywhere
 * [ ] Group code+tests by concept rather than technicalities
 * [ ] Add back UnitOfWork (but only expose add method)
 * [x] Create a HTTP adapter

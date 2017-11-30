@@ -32,8 +32,9 @@ describe('UI', () => {
   })
 
   it("renders accounts in a list", async () => {
-    render(AccountList({ accounts }), document.body)
-    const accountQueries = new DomAccountQueries(document.body)
+    const $domNode = document.body
+    render(AccountList({ accounts }), $domNode)
+    const accountQueries = new DomAccountQueries({ $domNode })
 
     assert.deepEqual(await accountQueries.getAccounts('votes'), accounts)
   })
@@ -48,10 +49,10 @@ describe('UI', () => {
     const pubSub = new PubSub()
     const accountQueries = new AccountQueries(pubSub)
 
-    const domNode = document.body
+    const $domNode = document.body
     const props = { transferCommands, accountQueries, accountNumber }
-    render(h(VotingApp, props), domNode)
-    const domTransferCommands = new DomTransferCommands(document.body)
+    render(h(VotingApp, props), $domNode)
+    const domTransferCommands = new DomTransferCommands({ $domNode })
 
     // We're using the write API of AccountQueries
     await accountQueries.storeAccount('entity-uid-1', accounts[0])

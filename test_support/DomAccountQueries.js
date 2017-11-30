@@ -1,5 +1,6 @@
 module.exports = class DomAccountQueries {
-  constructor($domNode) {
+  constructor({ $domNode }) {
+    if (!$domNode) throw new Error('No $domNode')
     this._$domNode = $domNode
   }
 
