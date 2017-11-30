@@ -1,6 +1,6 @@
 const fetch = require('node-fetch')
 const EventSource = require('eventsource')
-const EventSourceSigSub = require('../../../lib/cqrs-lite/sigsub/EventSourceSigSub')
+const EventSourcePubSub = require('../../../lib/cqrs-lite/pubsub/EventSourcePubSub')
 const RestClient = require('../../../lib/cqrs-lite/rest/RestClient')
 const HttpUserCommands = require('../../../lib/client/HttpUserCommands')
 const HttpTransferCommands = require('../../../lib/client/HttpTransferCommands')
@@ -14,14 +14,14 @@ module.exports = class HttpAssembly extends TestAssembly {
     const baseUrl = `http://localhost:${port}`
     const restClient = new RestClient(baseUrl, fetch, EventSource)
 
-    const eventSourceSigSub = new EventSourceSigSub(restClient)
-    await eventSourceSigSub.start()
+    const eventSourcePubSub = new EventSourcePubSub(restClient)
+    await eventSourcePubSub.start()
     // TODO: Use ClientAssembly
     // This is another argument we should use Assembly delegation, not inheritance
 
     this._httpUserCommands = new HttpUserCommands(restClient)
     this._httpTransferCommands = new HttpTransferCommands(restClient)
-    this._httpAccountQueries = new HttpAccountQueries(restClient, eventSourceSigSub)
+    this._httpAccountQueries = new HttpAccountQueries(restClient, eventSourcePubSub)
   }
 
   async stop() {
@@ -41,7 +41,7 @@ module.exports = class HttpAssembly extends TestAssembly {
     return this._httpAccountQueries
   }
 
-  get contextSigSub() {
-    return this.sigSub
+  get contextPubSub() {
+    return this.pubSub
   }
 }

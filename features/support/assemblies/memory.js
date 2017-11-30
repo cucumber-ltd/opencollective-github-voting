@@ -13,7 +13,7 @@ module.exports = class MemoryAssembly extends TestAssembly {
     return this.accountQueries
   }
 
-  get contextSigSub() {
-    return this.sigSub
+  get contextPubSub() {
+    return this.pubSub
   }
 }

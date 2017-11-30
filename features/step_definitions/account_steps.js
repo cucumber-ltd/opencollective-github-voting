@@ -26,7 +26,7 @@ Then('the {accountNumber} balance should be {int}', async function(accountNumber
     assert.equal(account.balance, expectedBalance)
   })
 
-  // Even though we're in a When step, use the sigSub from Given/When
-  await this.contextSigSub.flushScheduledSignals(true)
+  // Even though we're in a When step, use the pubSub from Given/When
+  await this.contextPubSub.flushScheduledSignals(true)
   await subscription.delivered(1)
 })

@@ -1,9 +1,9 @@
-# SigSub
+# PubSub
 
-SigSub (Signal-Subscribe) is a variant of PubSub (Publish-Subscribe). The API for subscription is simple:
+Simple implementation of Publish-Subscribe. The API for subscription is simple:
 
 ```javascript
-await sigSub.subscribe('some-signal', async () => {
+await pubSub.subscribe('some-signal', async () => {
   console.log('received some-signal')
 })
 ```
@@ -11,8 +11,8 @@ await sigSub.subscribe('some-signal', async () => {
 The API for publishing too:
 
 ```javascript
-sigSub.scheduleSignal('some-signal')
-await sigSub.flushScheduledSignals()
+pubSub.scheduleSignal('some-signal')
+await pubSub.flushScheduledSignals()
 ```
 
 This is similar to Node's `EventEmitter`, but there are some subtle differences:
@@ -37,14 +37,14 @@ been scheduled for delivery:
 ```
 // When
 
-doSomethingThatPublishes(sigSub)
+doSomethingThatPublishes(pubSub)
 
 // Then
 
-const subscription = await sigSub.subscribe('some-signal', async () => {
+const subscription = await pubSub.subscribe('some-signal', async () => {
   console.log('received some-signal')
 })
-await sigSub.flushScheduledSignals()
+await pubSub.flushScheduledSignals()
 await subscription.delivered(1)
 ```
 
@@ -53,8 +53,8 @@ await subscription.delivered(1)
 
 Because the API is asynchronous, it can be implemented to use networking. This library has two implementations (and more can be added easily):
 
-* `SigSub`
-* `EventSourceSigSub`
+* `PubSub`
+* `EventSourcePubSub`
 
-A web application would typically use `EventSourceSigSub`, but during testing it can be assembled to use
-the in-memory `SigSub` for faster tests.
+A web application would typically use `EventSourcePubSub`, but during testing it can be assembled to use
+the in-memory `PubSub` for faster tests.

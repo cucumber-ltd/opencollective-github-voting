@@ -3,7 +3,7 @@ const sinon = require('sinon')
 const { h, render } = require('preact')
 const { JSDOM } = require('jsdom')
 
-const SigSub = require('../../lib/cqrs-lite/sigsub/SigSub')
+const PubSub = require('../../lib/cqrs-lite/pubsub/PubSub')
 const { AccountList, VotingApp } = require('../../lib/client/UI')
 const AccountQueries = require('../../lib/read/AccountQueries')
 const DomAccountQueries = require('../../test_support/DomAccountQueries')
@@ -45,8 +45,8 @@ describe('UI', () => {
       transfer: sinon.spy(() => Promise.resolve())
     }
 
-    const sigSub = new SigSub()
-    const accountQueries = new AccountQueries(sigSub)
+    const pubSub = new PubSub()
+    const accountQueries = new AccountQueries(pubSub)
 
     const domNode = document.body
     const props = { transferCommands, accountQueries, accountNumber }
@@ -56,7 +56,7 @@ describe('UI', () => {
     // We're using the write API of AccountQueries
     await accountQueries.storeAccount('entity-uid-1', accounts[0])
     await accountQueries.storeAccount('entity-uid-1', accounts[1])
-    await sigSub.flushScheduledSignals()
+    await pubSub.flushScheduledSignals()
 
     // TODO: DOM should have own account too, so it knows what to pass in as from,
     // but also so it doesn't allow transferring more than the balance

@@ -1,15 +1,15 @@
 const assert = require('assert')
-const SigSub = require('../../lib/cqrs-lite/sigsub/SigSub')
+const PubSub = require('../../lib/cqrs-lite/pubsub/PubSub')
 const AccountQueries = require('../../lib/read/AccountQueries')
 
 module.exports = function verifyContract(makeAccountQueries) {
   describe('AccountQueries contract', () => {
 
-    let sigSub, accountStore, accountQueries
+    let pubSub, accountStore, accountQueries
     beforeEach(async () => {
-      sigSub = new SigSub()
-      accountStore = new AccountQueries(sigSub)
-      accountQueries = await makeAccountQueries({ sigSub, accountStore })
+      pubSub = new PubSub()
+      accountStore = new AccountQueries(pubSub)
+      accountQueries = await makeAccountQueries({ pubSub, accountStore })
     })
 
     it('lists accounts by currency, highest balance first', async () => {
@@ -56,7 +56,7 @@ module.exports = function verifyContract(makeAccountQueries) {
       const subscription = await accountQueries.subscribe(subscriptionKey, async () => {
         retrievedAccount = await accountQueries.getAccount(accountNumber)
       })
-      await sigSub.flushScheduledSignals()
+      await pubSub.flushScheduledSignals()
       await subscription.delivered(1)
       assert.deepEqual(retrievedAccount, account)
     })
@@ -80,7 +80,7 @@ module.exports = function verifyContract(makeAccountQueries) {
         retrievedAccount = await accountQueries.getAccount(accountNumber)
       })
 
-      await sigSub.flushScheduledSignals()
+      await pubSub.flushScheduledSignals()
       await subscription.delivered(1)
       assert.deepEqual(retrievedAccount, account)
     })

@@ -1,12 +1,12 @@
 const assert = require('assert')
-const SigSub = require('../../../lib/cqrs-lite/sigsub/SigSub')
+const PubSub = require('../../../lib/cqrs-lite/pubsub/PubSub')
 
 module.exports = function verifyContract(makeSubscriber) {
-  describe('SigSub contract', () => {
-    let sigSub, subscriber
+  describe('PubSub contract', () => {
+    let pubSub, subscriber
     beforeEach(async () => {
-      sigSub = new SigSub()
-      subscriber = await makeSubscriber(sigSub)
+      pubSub = new PubSub()
+      subscriber = await makeSubscriber(pubSub)
       await subscriber.start()
     })
 
@@ -20,9 +20,9 @@ module.exports = function verifyContract(makeSubscriber) {
         signalCount++
       })
 
-      sigSub.scheduleSignal('user')
-      await sigSub.flushScheduledSignals()
-      await sigSub.flushScheduledSignals()
+      pubSub.scheduleSignal('user')
+      await pubSub.flushScheduledSignals()
+      await pubSub.flushScheduledSignals()
 
       await subscription.delivered(1)
       assert.equal(signalCount, 1)
@@ -34,8 +34,8 @@ module.exports = function verifyContract(makeSubscriber) {
         assert.equal(b, 'B')
       })
 
-      sigSub.scheduleSignal('something', 'A', 'B')
-      await sigSub.flushScheduledSignals()
+      pubSub.scheduleSignal('something', 'A', 'B')
+      await pubSub.flushScheduledSignals()
 
       await subscription.delivered(1)
     })
@@ -46,10 +46,10 @@ module.exports = function verifyContract(makeSubscriber) {
         signalCount++
       })
 
-      sigSub.scheduleSignal('user')
-      await sigSub.flushScheduledSignals()
-      sigSub.scheduleSignal('user')
-      await sigSub.flushScheduledSignals()
+      pubSub.scheduleSignal('user')
+      await pubSub.flushScheduledSignals()
+      pubSub.scheduleSignal('user')
+      await pubSub.flushScheduledSignals()
 
       await subscription.delivered(2)
       assert.equal(signalCount, 2)
@@ -57,27 +57,27 @@ module.exports = function verifyContract(makeSubscriber) {
 
     it('publishes to late subscribers', async () => {
       let signalCount = 0
-      sigSub.scheduleSignal('user')
+      pubSub.scheduleSignal('user')
 
       const subscription = await subscriber.subscribe('user', async () => {
         signalCount++
       })
 
-      await sigSub.flushScheduledSignals()
+      await pubSub.flushScheduledSignals()
 
       await subscription.delivered(1)
       assert.equal(signalCount, 1)
     })
 
     it('publishes to two subscribers', async () => {
-      sigSub.scheduleSignal('sig')
+      pubSub.scheduleSignal('sig')
 
       const sub1 = await subscriber.subscribe('sig', async () => {})
-      await sigSub.flushScheduledSignals(true)
+      await pubSub.flushScheduledSignals(true)
       await sub1.delivered(1)
 
       const sub2 = await subscriber.subscribe('sig', async () => {})
-      await sigSub.flushScheduledSignals()
+      await pubSub.flushScheduledSignals()
       await sub2.delivered(1)
     })
   })
