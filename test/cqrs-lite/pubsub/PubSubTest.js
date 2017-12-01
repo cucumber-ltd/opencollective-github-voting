@@ -1,5 +1,5 @@
 const verifyPubSubContract = require('./verifyPubSubContract')
 
 describe('PubSub', () => {
-  verifyPubSubContract(pubSub => pubSub)
+  verifyPubSubContract(({ sub }) => sub)
 })

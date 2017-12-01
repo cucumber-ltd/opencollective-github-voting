@@ -1,88 +1,54 @@
 const assert = require('assert')
 const PubSub = require('../../lib/cqrs-lite/pubsub/PubSub')
 const AccountQueries = require('../../lib/read/AccountQueries')
+const AccountProjector = require('../../lib/read/AccountProjector')
 
 module.exports = function verifyContract(makeAccountQueries) {
   describe('AccountQueries contract', () => {
 
-    let pubSub, accountStore, accountQueries
+    const username = '@aslak'
+    const userUid = 'user-1'
+    const accountUid = 'account-1'
+    const currency = 'votes'
+    const accountNumber = { number: '@aslak-votes', currency }
+
+    let pub, sub, accountStore, accountQueries, accountProjector
     beforeEach(async () => {
-      pubSub = new PubSub()
-      accountStore = new AccountQueries(pubSub)
-      accountQueries = await makeAccountQueries({ pubSub, accountStore })
+      const pubSub = new PubSub()
+      accountStore = new AccountQueries({ pub: pubSub })
+      accountProjector = new AccountProjector(accountStore)
+      accountQueries = await makeAccountQueries({ sub: pubSub, accountQueries: accountStore })
+      pub = sub = pubSub
     })
 
     it('lists accounts by currency, highest balance first', async () => {
-      await accountStore.storeAccount('aslak-votes-uid', {
-        accountNumber: { number: '@aslak', currency: 'votes' },
-        balance: 22,
-      })
-      await accountStore.storeAccount('aslak-dollars-uid', {
-        accountNumber: { number: '@aslak', currency: 'dollars' },
-        balance: 32,
-      })
-      await accountStore.storeAccount('matt-votes-uid', {
-        accountNumber: { number: '@matt', currency: 'votes' },
-        balance: 42,
-      })
+      // Create a user with a votes account with balance 30
+      await accountProjector.onUserCreatedEvent({ entityUid: userUid, username })
+      await accountProjector.onAccountCreatedEvent({ entityUid: accountUid, accountNumber })
+      await accountProjector.onAccountCreditedEvent({ entityUid: accountUid, amount: 30, uniqueReference: 'ref-100' })
+      await accountProjector.onAccountDebitedEvent({ entityUid: accountUid, amount: 10, uniqueReference: 'ref-101' })
+      await accountProjector.onAccountAssignedToUserEvent({ entityUid: accountUid, userUid })
+      await pub.flushScheduledSignals()
 
-      const accounts = await accountQueries.getAccounts('votes')
+      const accounts = await accountQueries.getAccounts(currency)
       assert.deepEqual(accounts, [
         {
-          accountNumber: { number: '@matt', currency: 'votes' },
-          balance: 42,
-        },
-        {
-          accountNumber: { number: '@aslak', currency: 'votes' },
-          balance: 22,
+          accountNumber,
+          balance: 20,
+          transactions: [
+            {
+              amount: 30,
+              type: 'credit',
+              uniqueReference: 'ref-100'
+            },
+            {
+              amount: 10,
+              type: 'debit',
+              uniqueReference: 'ref-101'
+            }
+          ]
         }
       ])
-    })
-
-    it('publishes signals for accountNumber subscriptions', async () => {
-      const accountNumber = { number: '@aslak', currency: 'votes' }
-      const account = {
-        accountNumber,
-        balance: 0
-      }
-
-      await accountStore.storeAccount('some-entity-uid', account)
-
-      const subscriptionKey = {
-        type: 'accountNumber',
-        filter: accountNumber,
-      }
-      let retrievedAccount
-      const subscription = await accountQueries.subscribe(subscriptionKey, async () => {
-        retrievedAccount = await accountQueries.getAccount(accountNumber)
-      })
-      await pubSub.flushScheduledSignals()
-      await subscription.delivered(1)
-      assert.deepEqual(retrievedAccount, account)
-    })
-
-    it('publishes notifications for currency subscriptions', async () => {
-      const currency = 'votes'
-      const accountNumber = { number: '@aslak', currency }
-      const account = {
-        accountNumber,
-        balance: 0
-      }
-
-      await accountStore.storeAccount('some-entity-uid', account)
-
-      const subscriptionKey = {
-        type: 'currency',
-        filter: currency,
-      }
-      let retrievedAccount
-      const subscription = await accountQueries.subscribe(subscriptionKey, async () => {
-        retrievedAccount = await accountQueries.getAccount(accountNumber)
-      })
-
-      await pubSub.flushScheduledSignals()
-      await subscription.delivered(1)
-      assert.deepEqual(retrievedAccount, account)
     })
   })
 }

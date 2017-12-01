@@ -57,6 +57,24 @@ Each Assembly represents a hexagon (both the outer and inner part). There are th
 There are several implementations of `TestAssembly`, and they are responsible for building both the
 `ServerAssembly` and `ClientAssembly`
 
+## Dom*Queries
+
+If it feels complicated to implement certain methods from the domain-lavel *Queries APIs as Dom*Queries,
+this is an indication that the *Queries API should change to be more similar to what's rendered on the screen.
+
+After all, the *Queries provide a service to the UI. Changing the *Queries API to reflect the UI *simplifies*
+the UI (less processing of the data), and that makes it trivial to implement an equivalent Dom*Queries API.
+Making this change may affect projectors too.
+
+## No projector tests
+
+Instead of testing projectors in isolation, they are tested in conjunction with its associated `*Queries`
+implementation. Those tests are written as contract tests, allowing testing of several `*Queries`
+implementations as well. This approach has some benefits:
+
+* Store tests are not "accidentally" storing different data from what a projection would do
+* Setup is (maybe?) more straightforward - just fire some events at the projector
+
 # DX
 
 ## No Webpack, no Babel

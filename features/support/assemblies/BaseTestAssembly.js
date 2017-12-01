@@ -1,4 +1,11 @@
 module.exports = class BaseTestAssembly {
+
+  // For flusing scheduled signals
+
+  get pub() {
+    return this._contextAssembly.sub
+  }
+
   // Given
 
   get contextAccountCommands() {
@@ -6,6 +13,10 @@ module.exports = class BaseTestAssembly {
   }
 
   // When
+
+  get actionSub() {
+    return this._actionAssembly.sub
+  }
 
   get actionTransferCommands() {
     return this._actionAssembly.transferCommands
@@ -21,11 +32,11 @@ module.exports = class BaseTestAssembly {
 
   // Then
 
-  get accountQueries() {
-    return this._outcomeAssembly.accountQueries
+  get outcomeSub() {
+    return this._outcomeAssembly.sub
   }
 
-  get pubSub() {
-    return this._contextAssembly.pubSub
+  get outcomeAccountQueries() {
+    return this._outcomeAssembly.accountQueries
   }
 }

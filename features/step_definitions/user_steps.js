@@ -13,7 +13,7 @@ Then('{username}\'s statement should be:', async function(username, statementTab
     }
   })
 
-  const user = await this.accountQueries.getUser(username)
+  const user = await this.outcomeAccountQueries.getUser(username)
   const statement = user.accounts.map(account => {
     return {
       accountNumber: account.accountNumber,

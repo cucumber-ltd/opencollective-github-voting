@@ -12,21 +12,19 @@ Given("the {accountNumber} balance is {int}", async function(accountNumber, bala
 })
 
 When('{int} is transferred from {accountNumber} to {accountNumber}', async function(amount, fromAccountNumber, toAccountNumber) {
+  const subscription = await this.actionSub.subscribe('ACCOUNTS', async () => {
+  })
+  await this.pub.flushScheduledSignals(true)
+  await subscription.delivered(1)
   await this.actionTransferCommands.transfer(fromAccountNumber, toAccountNumber, amount)
 })
 
 Then('the {accountNumber} balance should be {int}', async function(accountNumber, expectedBalance) {
-  const subscriptionKey = {
-    type: 'accountNumber',
-    filter: accountNumber
-  }
-
-  const subscription = await this.accountQueries.subscribe(subscriptionKey, async () => {
-    const account = await this.accountQueries.getAccount(accountNumber)
+  const subscription = await this.outcomeSub.subscribe('ACCOUNTS', async () => {
+    const account = await this.outcomeAccountQueries.getAccount(accountNumber)
     assert.equal(account.balance, expectedBalance)
   })
 
-  // Even though we're in a When step, use the pubSub from Given/When
-  await this.pubSub.flushScheduledSignals(true)
+  await this.pub.flushScheduledSignals(true)
   await subscription.delivered(1)
 })

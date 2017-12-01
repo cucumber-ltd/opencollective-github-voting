@@ -54,7 +54,7 @@ await subscription.delivered(1)
 Because the API is asynchronous, it can be implemented to use networking. This library has two implementations (and more can be added easily):
 
 * `PubSub`
-* `EventSourcePubSub`
+* `EventSourceSub`
 
-A web application would typically use `EventSourcePubSub`, but during testing it can be assembled to use
+A web application would typically use `EventSourceSub`, but during testing it can be assembled to use
 the in-memory `PubSub` for faster tests.

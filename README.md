@@ -50,6 +50,7 @@ Both issues and users are modelled as `Account`s. Voting is modelled as `Transac
 
 ## TODO
 
+* [ ] Code coverage
 * [ ] Plug assemblies directly into each other, like hexagonal legos.
 * [x] Delegate assemblies (no inheritance)
 * [x] Rename pubsub to sigsub everywhere

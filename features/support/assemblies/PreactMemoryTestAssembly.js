@@ -8,10 +8,10 @@ module.exports = class PreactMemoryTestAssembly extends BaseTestAssembly {
     super()
     const $domNode = document.body
     const serverAssembly = new ServerAssembly()
-    const { transferCommands, accountQueries } = serverAssembly
-    const preactAssembly = new PreactAssembly({ $domNode, transferCommands, accountQueries })
+    const { transferCommands, accountQueries, sub } = serverAssembly
+    const preactAssembly = new PreactAssembly({ $domNode, sub, transferCommands, accountQueries })
 
-    const domTestAssembly = new DomTestAssembly({ $domNode })
+    const domTestAssembly = new DomTestAssembly({ $domNode, sub })
 
     this._contextAssembly = serverAssembly
     this._actionAssembly = domTestAssembly

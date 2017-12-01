@@ -24,6 +24,7 @@ module.exports = class HttpTestAssembly extends BaseTestAssembly {
   }
 
   async stop() {
+    await this._restClient.stop()
     await this._contextAssembly.webServer.stop()
   }
 }
