@@ -1,7 +1,7 @@
 const fetch = require('node-fetch')
 const EventSource = require('eventsource')
 const HttpAssembly = require('../../../lib/HttpAssembly')
-const RestClient = require('../../../lib/cqrs-lite/rest/RestClient')
+const RestClient = require('../../../lib/infrastructure/rest-client/RestClient')
 const ServerAssembly = require('../../../lib/ServerAssembly')
 const BaseTestAssembly = require('./BaseTestAssembly')
 

@@ -1,4 +1,4 @@
-const RestClient = require('../lib/cqrs-lite/rest/RestClient')
+const RestClient = require('../lib/infrastructure/rest-client/RestClient')
 const PreactAssembly = require('../lib/PreactAssembly')
 
 const preactAssembly = new PreactAssembly({
