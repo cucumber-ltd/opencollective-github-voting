@@ -1,7 +1,7 @@
-const PreactAssembly = require('../../../lib/client/PreactAssembly')
+const PreactAssembly = require('../../../lib/PreactAssembly')
 const ServerAssembly = require('../../../lib/ServerAssembly')
 const BaseTestAssembly = require('./BaseTestAssembly')
-const DomTestAssembly = require('../../../test_support/DomTestAssembly')
+const DomTestAssembly = require('../../../lib/DomTestAssembly')
 
 module.exports = class PreactMemoryTestAssembly extends BaseTestAssembly {
   constructor() {

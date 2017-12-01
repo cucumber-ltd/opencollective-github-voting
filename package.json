@@ -5,7 +5,7 @@
   "main": "server.js",
   "license": "MIT",
   "scripts": {
-    "test": "mocha && features/run/AllTestAssemblies",
+    "test": "mocha lib && features/run/AllTestAssemblies",
     "build": "webpack"
   },
   "devDependencies": {
