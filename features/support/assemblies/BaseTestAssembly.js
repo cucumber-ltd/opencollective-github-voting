@@ -1,42 +1,16 @@
+const uuid = require('uuid/v4')
+
 module.exports = class BaseTestAssembly {
 
-  // For flusing scheduled signals
-
-  get pub() {
-    return this._contextAssembly.sub
+  constructor() {
+    this._actors = new Map()
+    this._ids = new Map()
   }
 
-  // Given
-
-  get contextAccountCommands() {
-    return this._contextAssembly.accountCommands
-  }
-
-  // When
-
-  get actionSub() {
-    return this._actionAssembly.sub
-  }
-
-  get actionTransferCommands() {
-    return this._actionAssembly.transferCommands
-  }
-
-  get actionUserCommands() {
-    return this._actionAssembly.userCommands
-  }
-
-  get openCollectiveImporter() {
-    return this._actionAssembly.openCollectiveImporter
-  }
-
-  // Then
-
-  get outcomeSub() {
-    return this._outcomeAssembly.sub
-  }
-
-  get outcomeAccountQueries() {
-    return this._outcomeAssembly.accountQueries
+  // Get a "named" id
+  id(name) {
+    if (!this._ids.has(name))
+      this._ids.set(name, uuid())
+    return this._ids.get(name)
   }
 }

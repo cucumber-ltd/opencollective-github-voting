@@ -8,23 +8,28 @@ const BaseTestAssembly = require('./BaseTestAssembly')
 module.exports = class HttpTestAssembly extends BaseTestAssembly {
   constructor() {
     super()
+    this.context = new ServerAssembly()
+    this._actors = []
+  }
+
+  async actor(accountHolder) {
     const restClient = new RestClient({ fetch, EventSource })
+    await restClient.start({ baseUrl: this._baseUrl })
     const httpAssembly = new HttpAssembly({ restClient })
-    this._contextAssembly = new ServerAssembly()
-    this._actionAssembly = httpAssembly
-    this._outcomeAssembly = httpAssembly
-    this._restClient = restClient
+    await httpAssembly.start()
+    this._actors.push(httpAssembly)
+    return httpAssembly
   }
 
   async start() {
-    const port = await this._contextAssembly.webServer.listen({ port: 0 })
-    const baseUrl = `http://localhost:${port}`
-    await this._restClient.start({ baseUrl })
-    await this._actionAssembly.start()
+    const port = await this.context.webServer.listen({ port: 0 })
+    this._baseUrl = `http://localhost:${port}`
   }
 
   async stop() {
-    await this._restClient.stop()
-    await this._contextAssembly.webServer.stop()
+    for(const actor of this._actors) {
+      await actor.stop()
+    }
+    await this.context.webServer.stop()
   }
 }

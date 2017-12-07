@@ -4,17 +4,15 @@ const promisify = require('util.promisify')
 const readFileAsync = promisify(readFile)
 
 defineParameterType({
-  name: 'username',
-  regexp: /(@[\w-#/]+)/,
+  name: 'accountHolder',
+  regexp: /[#@][\w-/]+/,
 })
 
 defineParameterType({
-  name: 'accountNumber',
-  regexp: /([\w-@#/]+):(\w+)/,
-  transformer(number, currency) {
-    return { number, currency }
-  }
+  name: 'currency',
+  regexp: /(votes|commit-days|USD)/,
 })
+
 
 defineParameterType({
   name: 'fixture',

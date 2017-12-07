@@ -29,6 +29,22 @@ Administrators can configure what GitHub issues are votable (this will probably 
 It's not a goal to update issues on GitHub - seeing what people have voted on will happen on a system
 outside of GitHub.
 
+## User Story map (sort of)
+
+* Admin creates a `votable` tag in select GitHub repos
+* Admin tags certain issues with `votable`
+* Admin configures app with a list of GitHub repos to watch
+* Votable issues show up in the app
+* Admin sets a USD bounty on each issue
+  - This is how much developers will get if they fix it
+  - This sets the threshold for donations as well
+
+* GitHub Contributor looks at votable issues in the app
+* GitHub Contributor signs in with GitHub OAuth
+* GitHub Contributor sees they have 850 votes yay, wondering how to spend them
+
+
+
 ## Software Architecture
 
 The application is based on [Event Sourcing](https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing)

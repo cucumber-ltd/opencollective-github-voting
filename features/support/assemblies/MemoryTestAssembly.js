@@ -4,10 +4,11 @@ const BaseTestAssembly = require('./BaseTestAssembly')
 module.exports = class MemoryTestAssembly extends BaseTestAssembly {
   constructor() {
     super()
-    const serverAssembly = new ServerAssembly()
-    this._contextAssembly = serverAssembly
-    this._actionAssembly = serverAssembly
-    this._outcomeAssembly = serverAssembly
+    this.context = new ServerAssembly()
+  }
+
+  async actor(accountHolder) {
+    return this.context
   }
 
   async start() {
