@@ -40,7 +40,7 @@ In order to receive signals (over eventsource), a client first needs to subscrib
 This simplifies access control, since it can be done at the time of subscription.
 
 When new data is saved in a `*Queries` store, it *schedules* signals to be sent to subscribers.
-The scheduled signals will be flushed when `flushScheduledSignals` is called.
+The scheduled signals will be flushed when `flush` is called.
 
 This allows `Then` steps to explicitly flush the signals, and querying the `*Queries` only after receiving
 the signal. This verifies that both the signal part and the query part works as expected, and no

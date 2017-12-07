@@ -50,8 +50,8 @@ Then("{accountHolder}'s {currency} balance should be {int}", async function(acco
     assert.equal(account.balance, balance)
   } catch (err) {
     const subscription = await actor.sub.subscribe('BANK', getAccount)
-    await this.context.pub.scheduled('BANK')
-    await this.context.pub.flushScheduledSignals()
+    await this.context.pub.published('BANK')
+    await this.context.pub.flush()
     await subscription.delivered(1)
     assert.equal(account.balance, balance)
   }

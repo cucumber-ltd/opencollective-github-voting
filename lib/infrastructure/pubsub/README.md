@@ -11,8 +11,8 @@ await pubSub.subscribe('some-signal', async () => {
 The API for publishing too:
 
 ```javascript
-pubSub.scheduleSignal('some-signal')
-await pubSub.flushScheduledSignals()
+pubSub.publish('some-signal')
+await pubSub.flush()
 ```
 
 This is similar to Node's `EventEmitter`, but there are some subtle differences:
@@ -24,10 +24,10 @@ This has several benefits for testing.
 
 ## Deferred/Scheduled publishing
 
-When a publisher wants to publish something, they call `scheduleSignal`. This schedules the signal for delivery
+When a publisher wants to publish something, they call `publish`. This schedules the signal for delivery
 to subscribers, but it doesn't deliver them (yet).
 
-Scheduled signals are only delivered after calling `flushScheduledSignals`.
+Scheduled signals are only delivered after calling `flush`.
 
 So what's the point in that? It simplifies testing.
 
@@ -44,7 +44,7 @@ doSomethingThatPublishes(pubSub)
 const subscription = await pubSub.subscribe('some-signal', async () => {
   console.log('received some-signal')
 })
-await pubSub.flushScheduledSignals()
+await pubSub.flush()
 await subscription.delivered(1)
 ```
 
