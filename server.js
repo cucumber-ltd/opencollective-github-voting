@@ -1,6 +1,6 @@
 const uuid = require('uuid/v4')
 const ServerAssembly = require('./lib/ServerAssembly')
-const assembly = new ServerAssembly()
+const assembly = new ServerAssembly(true)
 const port = parseInt(process.env.PORT || 8080)
 
 async function start() {

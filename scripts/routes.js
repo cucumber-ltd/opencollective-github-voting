@@ -1,5 +1,5 @@
-const AppAssembly = require('../lib/ServerAssembly')
-const assembly = new AppAssembly()
+const ServerAssembly = require('../lib/ServerAssembly')
+const assembly = new ServerAssembly()
 
 function recurse(path, stack) {
   for (const child of stack) {
