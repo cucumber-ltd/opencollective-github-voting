@@ -34,10 +34,6 @@ When('{accountHolder} transfers {int} {currency} to {accountHolder}', async func
   const toAccountId = this.id(`${toAccountHolder}-${currency}`)
   const actor = await this.actor(fromAccountHolder)
 
-  const subscription = await actor.sub.subscribe('BANK', async () => {
-  })
-  await this.context.pub.flushScheduledSignals(true)
-  await subscription.delivered(1)
   await actor.transferCommands.transfer({ fromAccountId, toAccountId, amount })
 })
 
@@ -45,11 +41,25 @@ Then("{accountHolder}'s {currency} balance should be {int}", async function(acco
   const accountId = this.id(`${accountHolder}-${currency}`)
   const actor = await this.actor(accountHolder)
 
-  const subscription = await actor.sub.subscribe('BANK', async () => {
-    const account = await actor.bankQueries.getAccount(accountId)
-    assert.equal(account.balance, balance)
-  })
+  // TODO: this code is confusing as hell. How can we sync on signals in a simpler way?
+  // The problem here is that we're running this step twice. The first time we need to
+  // sync on the signal, but the 2nd time we don't have to. Also, it would be nice not having
+  // to keep track of how many subscription deliveries to wait for. I kind of just want to say:
+  // "wait until all scheduled signals have been propagated and consumed" and not worry about
+  // where they are sent from or where they are consumed.
 
-  await this.context.pub.flushScheduledSignals(true)
-  await subscription.delivered(1)
+  let account
+  const getAccount = async () => {
+    account = await actor.bankQueries.getAccount(accountId)
+  }
+  try {
+    await getAccount()
+    assert.equal(account.balance, balance)
+  } catch (err) {
+    const subscription = await actor.sub.subscribe('BANK', getAccount)
+    await this.context.pub.scheduled('BANK')
+    await this.context.pub.flushScheduledSignals()
+    await subscription.delivered(1)
+    assert.equal(account.balance, balance)
+  }
 })
