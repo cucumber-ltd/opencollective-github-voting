@@ -1,5 +1,5 @@
 module.exports = {
-  entry: './lib/client/client.js',
+  entry: './client/client.js',
   output: {
     filename: 'public/client.js'
   }

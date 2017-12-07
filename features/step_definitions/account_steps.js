@@ -1,5 +1,4 @@
 const assert = require('assert')
-const uuid = require('uuid/v4')
 const { Given, When, Then } = require('cucumber')
 
 Given('{accountHolder} has a {currency} account with balance {int}', async function(accountHolder, currency, initialBalance) {
@@ -10,12 +9,6 @@ Given('{accountHolder} has a {currency} account with balance {int}', async funct
     accountId,
     currency,
     initialBalance
-  })
-
-  await this.context.accountCommands.creditAccount({
-    accountId,
-    amount: initialBalance,
-    uniqueReference: uuid()
   })
 
   await this.context.accountHolderCommands.createAccountHolder({

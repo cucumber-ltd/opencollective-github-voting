@@ -13,8 +13,7 @@ module.exports = class HttpTestAssembly extends BaseTestAssembly {
   }
 
   async actor(accountHolder) {
-    const restClient = new RestClient({ fetch, EventSource })
-    await restClient.start({ baseUrl: this._baseUrl })
+    const restClient = new RestClient({ baseUrl: this._baseUrl, fetch, EventSource })
     const httpAssembly = new HttpAssembly({ restClient })
     await httpAssembly.start()
     this._actors.push(httpAssembly)
