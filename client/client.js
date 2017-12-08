@@ -1,6 +1,7 @@
 const RestClient = require('../lib/infrastructure/rest-client/RestClient')
 const HttpAssembly = require('../lib/HttpAssembly')
 const PreactAssembly = require('../lib/PreactAssembly')
+require("bulma/css/bulma.css")
 
 async function start(accountHolderId) {
   const restClient = new RestClient({
