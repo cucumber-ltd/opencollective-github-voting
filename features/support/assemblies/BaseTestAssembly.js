@@ -1,10 +1,15 @@
 const uuid = require('uuid/v4')
+const ServerAssembly = require('../../../lib/ServerAssembly')
+const SimulatingCommitsProvider = require('../../../lib/commits/SimulatingCommitsProvider')
 
 module.exports = class BaseTestAssembly {
 
   constructor() {
     this._actors = new Map()
     this._ids = new Map()
+
+    const commitsProvider = new SimulatingCommitsProvider()
+    this.context = new ServerAssembly({ commitsProvider })
   }
 
   // Get a "named" id

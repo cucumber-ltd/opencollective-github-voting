@@ -1,12 +1,10 @@
 const PreactAssembly = require('../../../lib/PreactAssembly')
-const ServerAssembly = require('../../../lib/ServerAssembly')
 const DomTestAssembly = require('./DomTestAssembly')
 const BaseTestAssembly = require('./BaseTestAssembly')
 
 module.exports = class PreactMemoryTestAssembly extends BaseTestAssembly {
   constructor() {
     super()
-    this.context = new ServerAssembly()
     this._actors = new Map()
   }
 
