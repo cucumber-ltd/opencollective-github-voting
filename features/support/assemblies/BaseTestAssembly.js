@@ -1,6 +1,6 @@
 const uuid = require('uuid/v4')
 const ServerAssembly = require('../../../lib/ServerAssembly')
-const SimulatingCommitsProvider = require('../../../lib/commits/SimulatingCommitsProvider')
+const SimulatingCommitsProvider = require('../../../lib/commits/SimulatorCommitsProvider')
 
 module.exports = class BaseTestAssembly {
 
