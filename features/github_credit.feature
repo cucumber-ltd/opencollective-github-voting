@@ -2,12 +2,12 @@ Feature: GitHub Credit
   For each authenticated user we will maintain some accounts that can be transferred
   to votes later:
 
-  * Number of committer-days in a repo
+  * Number of commit-days in a repo
   * Number of days since they made their first commit in a repo
 
-  Scenario: committer-days are imported
+  Scenario: commit-days are imported
 
-    In this example, @bob is  (obviously) only credited for
+    In this example, @bob is (obviously) only credited for
     his own commits (not @sally's), and he doesn't get extra
     credit for being active in several repos on the same day.
     We only count unique days with commits.

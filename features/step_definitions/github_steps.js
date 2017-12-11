@@ -6,5 +6,5 @@ Given('the following commits have been made:', function(commitsTable) {
 
 When('commits are imported', async function() {
   // TODO: This shouldn't hang off context, but something else - not sure what to name it
-  await this.context.commitsImporter.importCommits()
+  await this.context.commitDaysUpdater.importCommits()
 });
