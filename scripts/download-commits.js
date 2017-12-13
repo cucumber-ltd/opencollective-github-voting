@@ -1,7 +1,12 @@
 const { Transform } = require('stream')
 const GithubCommitsStream = require('../lib/commits/GitHubCommitsStream')
 
-const commitsStream = new GithubCommitsStream({ owner: 'cucumber', repo: 'cucumber', author: 'aslakhellesoy' })
+const commitsStream = new GithubCommitsStream({
+  owner: 'cucumber',
+  repo: 'cucumber',
+  author: 'aslakhellesoy',
+  token: process.env['REWARD_GITHUB_OAUTH_SECRET']
+})
 
 commitsStream.on('error', err => console.error('ERROR', err))
 

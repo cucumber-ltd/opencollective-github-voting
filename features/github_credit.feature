@@ -21,5 +21,6 @@ Feature: GitHub Credit
       | cucumber-jvm  | @bob      | 2017-11-12 |
       | cucumber-ruby | @bob      | 2017-11-12 |
       | experiment    | @bob      | 2017-11-12 |
+    # TODO: Change this to When @bob authenticates?
     When commits are imported
     Then @bob's commit-days balance should be 12

@@ -66,6 +66,9 @@ Both issues and users are modelled as `Account`s. Voting is modelled as `Transac
 
 ## TODO
 
+* [ ] Diagrams describing how this fits together
+  * Production assembly
+  * Various test assemblies
 * [ ] Code coverage
 * [ ] Plug assemblies directly into each other, like hexagonal legos.
 * [x] Delegate assemblies (no inheritance)
