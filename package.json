@@ -33,6 +33,7 @@
     "ssestream": "^1.0.0",
     "style-loader": "^0.19.0",
     "util.promisify": "^1.0.0",
-    "uuid": "^3.1.0"
+    "uuid": "^3.1.0",
+    "value-object": "^0.0.10"
   }
 }

@@ -4011,6 +4011,10 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "~1.0.0"
     spdx-expression-parse "~1.0.0"
 
+value-object@^0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/value-object/-/value-object-0.0.10.tgz#9f06dc6b6e56e210f7ffebc853f5e16dfdac6c85"
+
 vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
