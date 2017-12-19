@@ -4,8 +4,13 @@ const promisify = require('util.promisify')
 const readFileAsync = promisify(readFile)
 
 defineParameterType({
-  name: 'accountHolder',
-  regexp: /[#@][\w-/]+/,
+  name: 'issue',
+  regexp: /#[\w-/]+/,
+})
+
+defineParameterType({
+  name: 'gitHubUser',
+  regexp: /[\w-/]+/,
 })
 
 defineParameterType({

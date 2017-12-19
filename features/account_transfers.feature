@@ -17,9 +17,9 @@ Feature: Account transfers
   * "Buy" USD votes by donating to the OpenCollective
   * "Earn" votes by being active on GitHub
 
-  Scenario: @bob votes 10 on #250
-    Given @bob has a votes account with balance 15
+  Scenario: bob votes 10 on #250
+    Given bob has a votes account with balance 15
     And #250 has a votes account with balance 2
-    When @bob transfers 10 votes to #250
+    When bob transfers 10 votes to #250
     Then #250's votes balance should be 12
-    And @bob's votes balance should be 5
+    And bob's votes balance should be 5
