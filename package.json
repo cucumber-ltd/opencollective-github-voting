@@ -17,7 +17,8 @@
     "mocha": "^4.0.1",
     "node-fetch": "^1.7.3",
     "sinon": "^4.1.2",
-    "webpack": "^3.8.1"
+    "webpack": "^3.8.1",
+    "webpack-dev-middleware": "^2.0.2"
   },
   "dependencies": {
     "body-parser": "^1.18.2",

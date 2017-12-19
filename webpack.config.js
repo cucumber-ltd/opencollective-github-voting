@@ -1,7 +1,11 @@
+const path = require('path')
+
 module.exports = {
   entry: './client/client.js',
   output: {
-    filename: 'public/client.js'
+    filename: 'client.js',
+    path: path.resolve(__dirname, 'public'),
+    publicPath: '/'
   },
   module: {
     loaders: [
