@@ -29,6 +29,10 @@ Administrators can configure what GitHub issues are votable (this will probably 
 It's not a goal to update issues on GitHub - seeing what people have voted on will happen on a system
 outside of GitHub.
 
+## Run locally
+
+    NODE_ENV=development node server.js
+
 ## User Story map (sort of)
 
 * Admin creates a `votable` tag in select GitHub repos

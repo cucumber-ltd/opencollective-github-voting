@@ -3,15 +3,15 @@ const GitHubCommitsStream = require('./lib/commits/GitHubCommitsStream')
 const GitHubCommitsProvider = require('./lib/commits/GitHubCommitsProvider')
 const ServerAssembly = require('./lib/ServerAssembly')
 
-const githubOauthId = process.env['REWARD_GITHUB_OAUTH_ID']
-const githubOauthSecret = process.env['REWARD_GITHUB_OAUTH_SECRET']
+const gitHubOauthId = process.env['REWARD_GITHUB_OAUTH_ID']
+const gitHubOauthSecret = process.env['REWARD_GITHUB_OAUTH_SECRET']
 
 const getCommitsStream = ({ owner, repo, author }) => {
   return new GitHubCommitsStream({ owner, repo, author })
 }
 const commitsProvider = new GitHubCommitsProvider(getCommitsStream)
 
-const assembly = new ServerAssembly({ autoflush: true, commitsProvider, githubOauthId, githubOauthSecret })
+const assembly = new ServerAssembly({ autoflush: true, commitsProvider, gitHubOauthId, gitHubOauthSecret })
 const port = parseInt(process.env.PORT || 8080)
 
 async function start() {
